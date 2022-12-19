@@ -24,19 +24,19 @@ import java.util.Collection;
 public class Member implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_idx")
+    @Column(name = "id")
     private Integer memberId;
 
-    @Column(name = "login_id")
+    @Column(name = "user_id")
     private String loginId;
 
-    @Column(name = "password")
+    @Column(name = "user_password")
     private String password;
 
-    @Column(name = "name")
+    @Column(name = "user_name")
     private String name;
 
-    @Column(name = "grade")
+    @Column(name = "user_grade")
     private Integer grade;
 
     @Transient
