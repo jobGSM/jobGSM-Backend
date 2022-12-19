@@ -27,7 +27,7 @@ public class MemberSignUpRequestDto {
     @Positive  // 양수만 받는다
     @Max(value = 3, message = "학년은 1~3학년 사이여야 합니다.")
     @Min(value = 1, message = "학년은 1~3학년 사이여야 합니다.")
-    @NotBlank(message = "학년을 입력해주세요")
+    @NotNull
     private Integer grade;
 
     public Member toEntity(){
