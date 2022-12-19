@@ -34,7 +34,7 @@ public class BoardApiController {
     }
     
 
-    // 게시글 삭제
+    //게시글 삭제
     @DeleteMapping("/board/{id}")
     public void delete(@PathVariable final Long boardId){
         boardService.deleteBoard(boardId);
