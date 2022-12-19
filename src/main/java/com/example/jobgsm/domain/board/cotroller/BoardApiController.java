@@ -29,7 +29,12 @@ public class BoardApiController {
 
     //게시글 수정
     @PatchMapping("/board/{id}")
-    public Long save(@PathVariable final Long id,@RequestBody final BoardRequestDto params){
-        return boardService.update(id,params);
+    public Long save(@PathVariable final Long boardId,@RequestBody final BoardRequestDto params){
+        return boardService.update(boardId,params);
+    }
+
+    @DeleteMapping("/board/{id}")
+    public void delete(@PathVariable final Long boardId){
+        boardService.deleteBoard(boardId);
     }
 }

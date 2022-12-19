@@ -32,11 +32,20 @@ public class BoardService {
     }
 
     @Transactional
-    public Long update(final Long id, final BoardRequestDto params) {
+    public Long update(final Long boardId, final BoardRequestDto params) {
 
-        Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        Board entity = boardRepository.findById(boardId).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
         entity.update(params.getBoardTitle(), params.getBoardContent(), params.getBoardWriter(),params.getBoardApplicant(),params.getBoardDate());
-        return id;
+        return boardId;
+    }
+
+    //delete
+    @Transactional
+    public void deleteBoard(Long boardId) {
+        // 1. 게시글 조회
+        Board entity = boardRepository.findById(boardId).get();
+        // 2. 게시글 삭제
+        boardRepository.delete(entity);
     }
 
 }
