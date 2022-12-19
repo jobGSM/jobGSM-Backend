@@ -22,4 +22,8 @@ public class UserService {
                 .userGrade(user.getUserGrade())
                 .build();
     }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }

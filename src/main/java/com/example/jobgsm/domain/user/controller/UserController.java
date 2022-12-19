@@ -19,4 +19,10 @@ public class UserController {
         MyPageResponse myPageResponse = userService.myPage(id);
         return ResponseEntity.ok().body(myPageResponse);
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.ok().build();
+    }
 }
