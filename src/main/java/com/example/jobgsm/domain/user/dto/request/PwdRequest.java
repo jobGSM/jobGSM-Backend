@@ -1,17 +1,14 @@
 package com.example.jobgsm.domain.user.dto.request;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRequest {
+public class PwdRequest {
 
-    private String userId;
+    private Long id;
     private String userPassword;
-    private String userName;
-    private Integer userGrade;
 }
