@@ -32,7 +32,9 @@ public class BoardApiController {
     public Long save(@PathVariable final Long boardId,@RequestBody final BoardRequestDto params){
         return boardService.update(boardId,params);
     }
+    
 
+    // 게시글 삭제
     @DeleteMapping("/board/{id}")
     public void delete(@PathVariable final Long boardId){
         boardService.deleteBoard(boardId);
