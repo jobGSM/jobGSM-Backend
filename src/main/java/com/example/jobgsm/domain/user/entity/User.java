@@ -1,9 +1,7 @@
 package com.example.jobgsm.domain.user.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,6 +13,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Builder
 @Getter
+@DynamicUpdate
 public class User {
 
     @Id
@@ -23,7 +22,18 @@ public class User {
     private String userId;
     private String userPassword;
     private String userName;
-    private String userGrade;
+    private Integer userGrade;
 
-
+    public void updateUserId(String userId) {
+        this.userId = userId;
+    }
+    public void updateUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+    public void updateUserName(String userName) {
+        this.userName = userName;
+    }
+    public void updateUserGrade(Integer userGrade) {
+        this.userGrade = userGrade;
+    }
 }

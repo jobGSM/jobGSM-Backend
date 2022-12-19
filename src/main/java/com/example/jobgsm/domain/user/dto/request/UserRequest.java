@@ -1,16 +1,15 @@
-package com.example.jobgsm.domain.user.dto.response;
+package com.example.jobgsm.domain.user.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Builder
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MyPageResponse {
+public class UserRequest {
 
-    private Long id;
     private String userId;
     private String userPassword;
     private String userName;

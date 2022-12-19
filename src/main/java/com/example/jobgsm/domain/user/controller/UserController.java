@@ -1,5 +1,6 @@
 package com.example.jobgsm.domain.user.controller;
 
+import com.example.jobgsm.domain.user.dto.request.UserRequest;
 import com.example.jobgsm.domain.user.dto.response.MyPageResponse;
 import com.example.jobgsm.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,12 @@ public class UserController {
     @DeleteMapping
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping
+    public ResponseEntity<Void> editUser(@RequestBody UserRequest userRequest, @PathVariable Long id) {
+        userService.editUser(userRequest, id);
         return ResponseEntity.ok().build();
     }
 }
