@@ -1,4 +1,4 @@
-package com.example.jobgsm.domain.board.exception;
+package com.example.jobgsm.global.exception;
 
 
 import lombok.extern.slf4j.Slf4j;
