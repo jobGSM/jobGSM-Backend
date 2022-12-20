@@ -2,8 +2,7 @@ package com.example.jobgsm.domain.application.controller;
 
 import com.example.jobgsm.domain.application.dto.request.ApplyRequest;
 import com.example.jobgsm.domain.application.dto.request.CancelRequest;
-import com.example.jobgsm.domain.application.dto.response.ResponseApplications;
-import com.example.jobgsm.domain.application.entity.Application;
+import com.example.jobgsm.domain.application.dto.response.ResponseApplicants;
 import com.example.jobgsm.domain.application.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +29,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/board/applications/{boardId}")
-    public List<ResponseApplications> applicationsList(@PathVariable Long boardId) {
-        return applicationService.applicationsList(boardId);
+    public List<ResponseApplicants> applicantsList(@PathVariable Long boardId) {
+        return applicationService.applicantsList(boardId);
     }
 }

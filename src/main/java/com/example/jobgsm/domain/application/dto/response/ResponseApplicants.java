@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseApplications {
+public class ResponseApplicants {
 
     private Long id;
     private Long boardId;
@@ -18,7 +18,7 @@ public class ResponseApplications {
     private Integer userGrade;
 
 
-    public ResponseApplications(Application application) {
+    public ResponseApplicants(Application application) {
         this.id = application.getId();
         this.boardId = application.getBoardId();
         this.userName = application.getUserName();
