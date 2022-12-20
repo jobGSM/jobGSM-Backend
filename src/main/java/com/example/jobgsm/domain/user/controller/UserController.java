@@ -15,7 +15,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @ResponseBody
     @GetMapping
     public ResponseEntity<MyPageResponse> myPage(@RequestBody IdRequest idRequest) {
         MyPageResponse myPageResponse = userService.myPage(idRequest.getId());
