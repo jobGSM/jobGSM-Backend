@@ -24,7 +24,6 @@ public class ApplicationController {
         return ResponseEntity.ok().build();
     }
 
-    @Transactional
     @DeleteMapping("/board/application")
     public ResponseEntity<Void> joinCancel(@RequestBody CancelRequest cancelRequest) {
         applicationService.joinCancel(cancelRequest);

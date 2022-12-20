@@ -7,6 +7,8 @@ import com.example.jobgsm.domain.application.repository.ApplicationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 @RequiredArgsConstructor
 public class ApplicationService {
@@ -22,6 +24,7 @@ public class ApplicationService {
         applicationRepository.save(application);
     }
 
+    @Transactional
     public void joinCancel(CancelRequest cancelRequest) {
         applicationRepository.deleteApplicationByBoardIdAndId(cancelRequest.getBoardId(), cancelRequest.getId());
     }
