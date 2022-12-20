@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApplicationRequest {
+public class ApplyRequest {
 
     private Long boardId;
     private Long id;
