@@ -8,5 +8,6 @@ import java.util.List;
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
 
     void deleteApplicationByBoardIdAndId(Long boardId, Long id);
-    List<Application> findApplicantsByBoardId(Long boardId);
+    List<Application> findApplicationsByBoardId(Long boardId);
+    List<Application> findApplicationsById(Long id);
 }

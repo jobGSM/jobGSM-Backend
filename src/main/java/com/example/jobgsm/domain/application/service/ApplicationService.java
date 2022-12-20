@@ -2,7 +2,7 @@ package com.example.jobgsm.domain.application.service;
 
 import com.example.jobgsm.domain.application.dto.request.ApplyRequest;
 import com.example.jobgsm.domain.application.dto.request.CancelRequest;
-import com.example.jobgsm.domain.application.dto.response.ResponseApplicants;
+import com.example.jobgsm.domain.application.dto.response.ResponseDTO;
 import com.example.jobgsm.domain.application.entity.Application;
 import com.example.jobgsm.domain.application.repository.ApplicationRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +32,15 @@ public class ApplicationService {
         applicationRepository.deleteApplicationByBoardIdAndId(cancelRequest.getBoardId(), cancelRequest.getId());
     }
 
-    public List<ResponseApplicants> applicantsList(Long boardId) {
-        return applicationRepository.findApplicantsByBoardId(boardId).stream()
-                .map(ResponseApplicants::new)
+    public List<ResponseDTO> applicantsList(Long boardId) {
+        return applicationRepository.findApplicationsByBoardId(boardId).stream()
+                .map(ResponseDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    public List<ResponseDTO> applicationsList(Long id) {
+        return applicationRepository.findApplicationsById(id).stream()
+                .map(ResponseDTO::new)
                 .collect(Collectors.toList());
     }
 }

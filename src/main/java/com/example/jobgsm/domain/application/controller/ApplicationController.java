@@ -2,7 +2,7 @@ package com.example.jobgsm.domain.application.controller;
 
 import com.example.jobgsm.domain.application.dto.request.ApplyRequest;
 import com.example.jobgsm.domain.application.dto.request.CancelRequest;
-import com.example.jobgsm.domain.application.dto.response.ResponseApplicants;
+import com.example.jobgsm.domain.application.dto.response.ResponseDTO;
 import com.example.jobgsm.domain.application.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +29,12 @@ public class ApplicationController {
     }
 
     @GetMapping("/board/applications/{boardId}")
-    public List<ResponseApplicants> applicantsList(@PathVariable Long boardId) {
+    public List<ResponseDTO> applicantsList(@PathVariable Long boardId) {
         return applicationService.applicantsList(boardId);
+    }
+
+    @GetMapping("/user/application/{id}")
+    public List<ResponseDTO> applicationsList(@PathVariable Long id) {
+        return applicationService.applicationsList(id);
     }
 }
