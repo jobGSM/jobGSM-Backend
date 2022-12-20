@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -17,13 +18,13 @@ public class ApplicationController {
     private final ApplicationService applicationService;
 
     @PostMapping("/board/application")
-    public ResponseEntity<Void> joinApply(@RequestBody ApplyRequest applyRequest) {
+    public ResponseEntity<Void> joinApply(@RequestBody @Valid ApplyRequest applyRequest) {
         applicationService.joinApply(applyRequest);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/board/application")
-    public ResponseEntity<Void> joinCancel(@RequestBody CancelRequest cancelRequest) {
+    public ResponseEntity<Void> joinCancel(@RequestBody @Valid CancelRequest cancelRequest) {
         applicationService.joinCancel(cancelRequest);
         return ResponseEntity.ok().build();
     }
