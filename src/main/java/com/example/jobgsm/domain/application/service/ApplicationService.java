@@ -20,7 +20,7 @@ public class ApplicationService {
     public void joinApply(ApplyRequest applyRequest) {
         Application application = Application.builder()
                 .boardId(applyRequest.getBoardId())
-                .id(applyRequest.getId())
+                .userId(applyRequest.getUserId())
                 .userName(applyRequest.getUserName())
                 .userGrade(applyRequest.getUserGrade())
                 .build();
@@ -29,7 +29,7 @@ public class ApplicationService {
 
     @Transactional
     public void joinCancel(CancelRequest cancelRequest) {
-        applicationRepository.deleteApplicationByBoardIdAndId(cancelRequest.getBoardId(), cancelRequest.getId());
+        applicationRepository.deleteApplicationByBoardIdAndUserId(cancelRequest.getBoardId(), cancelRequest.getUserId());
     }
 
     public List<ResponseDTO> applicantsList(Long boardId) {
@@ -38,8 +38,8 @@ public class ApplicationService {
                 .collect(Collectors.toList());
     }
 
-    public List<ResponseDTO> applicationsList(Long id) {
-        return applicationRepository.findApplicationsById(id).stream()
+    public List<ResponseDTO> applicationsList(Long userId) {
+        return applicationRepository.findApplicationsByUserId(userId).stream()
                 .map(ResponseDTO::new)
                 .collect(Collectors.toList());
     }

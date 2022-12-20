@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ApplyRequest {
 
-    private Long id;
+    private Long userId;
     private Long boardId;
     private String userName;
     private Integer userGrade;

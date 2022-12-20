@@ -20,7 +20,7 @@ public class Application {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pk;
-    private Long id;
+    private Long userId;
     private Long boardId;
     private String userName;
     private Integer userGrade;

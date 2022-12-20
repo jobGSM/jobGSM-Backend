@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ResponseDTO {
 
-    private Long id;
+    private Long userId;
     private Long boardId;
     private String userName;
     private Integer userGrade;
 
 
     public ResponseDTO(Application application) {
-        this.id = application.getId();
+        this.userId = application.getUserId();
         this.boardId = application.getBoardId();
         this.userName = application.getUserName();
         this.userGrade = application.getUserGrade();

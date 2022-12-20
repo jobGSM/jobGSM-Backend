@@ -33,8 +33,8 @@ public class ApplicationController {
         return applicationService.applicantsList(boardId);
     }
 
-    @GetMapping("/user/application/{id}")
-    public List<ResponseDTO> applicationsList(@PathVariable Long id) {
-        return applicationService.applicationsList(id);
+    @GetMapping("/user/application/{userId}")
+    public List<ResponseDTO> applicationsList(@PathVariable Long userId) {
+        return applicationService.applicationsList(userId);
     }
 }
