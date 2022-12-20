@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ApplyRequest {
 
-    private Long boardId;
     private Long id;
+    private Long boardId;
     private String userName;
     private Integer userGrade;
 }

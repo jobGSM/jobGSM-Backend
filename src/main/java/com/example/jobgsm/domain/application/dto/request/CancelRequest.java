@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CancelRequest {
 
-    private Long boardId;
     private Long id;
+    private Long boardId;
 }

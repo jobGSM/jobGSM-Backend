@@ -2,24 +2,27 @@ package com.example.jobgsm.domain.application.service;
 
 import com.example.jobgsm.domain.application.dto.request.ApplyRequest;
 import com.example.jobgsm.domain.application.dto.request.CancelRequest;
+import com.example.jobgsm.domain.application.dto.response.ResponseApplications;
 import com.example.jobgsm.domain.application.entity.Application;
 import com.example.jobgsm.domain.application.repository.ApplicationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ApplicationService {
     private final ApplicationRepository applicationRepository;
 
-    public void joinApply(ApplyRequest applicationRequest) {
+    public void joinApply(ApplyRequest applyRequest) {
         Application application = Application.builder()
-                .boardId(applicationRequest.getBoardId())
-                .id(applicationRequest.getId())
-                .userName(applicationRequest.getUserName())
-                .userGrade(applicationRequest.getUserGrade())
+                .boardId(applyRequest.getBoardId())
+                .id(applyRequest.getId())
+                .userName(applyRequest.getUserName())
+                .userGrade(applyRequest.getUserGrade())
                 .build();
         applicationRepository.save(application);
     }
@@ -27,5 +30,11 @@ public class ApplicationService {
     @Transactional
     public void joinCancel(CancelRequest cancelRequest) {
         applicationRepository.deleteApplicationByBoardIdAndId(cancelRequest.getBoardId(), cancelRequest.getId());
+    }
+
+    public List<ResponseApplications> applicationsList(Long boardId) {
+        return applicationRepository.findApplicationsByBoardId(boardId).stream()
+                .map(ResponseApplications::new)
+                .collect(Collectors.toList());
     }
 }
