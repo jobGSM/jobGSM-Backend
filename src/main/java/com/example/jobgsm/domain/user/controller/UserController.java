@@ -17,13 +17,13 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<MyPageResponse> myPage(@RequestBody IdRequest idRequest) {
-        MyPageResponse myPageResponse = userService.myPage(idRequest.getId());
+        MyPageResponse myPageResponse = userService.myPage(idRequest.getUserId());
         return ResponseEntity.ok().body(myPageResponse);
     }
 
     @DeleteMapping
     public ResponseEntity<Void> deleteUser(@RequestBody IdRequest idRequest) {
-        userService.deleteUser(idRequest.getId());
+        userService.deleteUser(idRequest.getUserId());
         return ResponseEntity.ok().build();
     }
 

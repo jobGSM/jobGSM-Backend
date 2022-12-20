@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PwdRequest {
 
-    private Long id;
-    private String userPassword;
+    private Long userId;
+    private String password;
 }

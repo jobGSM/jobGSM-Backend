@@ -20,11 +20,11 @@ public class UserService {
     public MyPageResponse myPage(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("유저를 찾을 수 없습니다."));
         return MyPageResponse.builder()
-                .id(user.getId())
                 .userId(user.getUserId())
-                .userPassword(user.getUserPassword())
-                .userName(user.getUserName())
-                .userGrade(user.getUserGrade())
+                .email(user.getEmail())
+                .password(user.getPassword())
+                .name(user.getName())
+                .grade(user.getGrade())
                 .build();
     }
 
@@ -33,14 +33,15 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    @Transactional
     public void editPwd(PwdRequest pwdRequest) {
-        if (pwdRequest.getUserPassword() == null) {
+        if (pwdRequest.getPassword() == null) {
             throw new NotNullException("null값은 허용되지 않습니다.");
         }
 
-        User user = userRepository.findById(pwdRequest.getId())
+        User user = userRepository.findById(pwdRequest.getUserId())
                 .orElseThrow(() -> new UserNotFoundException("유저를 찾을 수 없습니다."));
 
-        user.updateUserPassword(pwdRequest.getUserPassword());
+        user.updatePassword(pwdRequest.getPassword());
     }
 }

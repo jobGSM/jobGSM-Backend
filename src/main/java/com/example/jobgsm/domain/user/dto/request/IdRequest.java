@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class IdRequest {
 
-    private Long id;
+    private Long userId;
 }
