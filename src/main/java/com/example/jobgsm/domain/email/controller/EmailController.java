@@ -1,6 +1,10 @@
 package com.example.jobgsm.domain.email.controller;
 
 import com.example.jobgsm.domain.email.service.EmailService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +25,7 @@ public class EmailController {
             @ApiResponse(code = 404, message = "사용자 없음"),
             @ApiResponse(code = 500, message = "서버 오류")
     })
-    public ResponseEntity<? extends BaseResponseBody> emailConfirm(
+    public ResponseEntity<String> emailConfirm(
             @RequestBody @ApiParam(value="이메일정보 정보", required = true) String email) throws Exception {
 
         String confirm = emailService.sendSimpleMessage(email);
