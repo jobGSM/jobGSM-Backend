@@ -3,6 +3,7 @@ package com.example.jobgsm.domain.application.controller;
 import com.example.jobgsm.domain.application.dto.request.ApplyRequest;
 import com.example.jobgsm.domain.application.dto.request.CancelRequest;
 import com.example.jobgsm.domain.application.dto.response.ApplicantsResponse;
+import com.example.jobgsm.domain.application.dto.response.BoardIdResponse;
 import com.example.jobgsm.domain.application.dto.response.ResponseDTO;
 import com.example.jobgsm.domain.application.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class ApplicationController {
     }
 
     @GetMapping("/user/application/{userId}")
-    public List<ResponseDTO> applicationsList(@PathVariable @NotEmpty Long userId) {
+    public List<BoardIdResponse> applicationsList(@PathVariable @NotEmpty Long userId) {
         return applicationService.applicationsList(userId);
     }
 }

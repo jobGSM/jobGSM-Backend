@@ -3,6 +3,7 @@ package com.example.jobgsm.domain.application.service;
 import com.example.jobgsm.domain.application.dto.request.ApplyRequest;
 import com.example.jobgsm.domain.application.dto.request.CancelRequest;
 import com.example.jobgsm.domain.application.dto.response.ApplicantsResponse;
+import com.example.jobgsm.domain.application.dto.response.BoardIdResponse;
 import com.example.jobgsm.domain.application.dto.response.ResponseDTO;
 import com.example.jobgsm.domain.application.entity.Application;
 import com.example.jobgsm.domain.application.repository.ApplicationRepository;
@@ -39,9 +40,7 @@ public class ApplicationService {
                 .collect(Collectors.toList());
     }
 
-    public List<ResponseDTO> applicationsList(Long userId) {
-        return applicationRepository.findApplicationsByUserId(userId).stream()
-                .map(ResponseDTO::new)
-                .collect(Collectors.toList());
+    public List<BoardIdResponse> applicationsList(Long userId) {
+        return applicationRepository.findApplicationsByUserId(userId);
     }
 }
