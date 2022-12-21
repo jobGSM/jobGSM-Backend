@@ -1,5 +1,6 @@
 package com.example.jobgsm.global.handler;
 
+import com.example.jobgsm.domain.application.exception.BoardNotFoundException;
 import com.example.jobgsm.global.ErrorCode;
 import com.example.jobgsm.global.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,13 @@ import javax.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
+    @ExceptionHandler(BoardNotFoundException.class)
+    public ResponseEntity<ErrorResponse> UserNotFoundException(BoardNotFoundException exception, HttpServletRequest request) {
+        log.warn("BoardNotFoundException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> methodValidException(MethodArgumentNotValidException e, HttpServletRequest request){
