@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -16,19 +18,19 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<MyPageResponse> myPage(@RequestBody IdRequest idRequest) {
+    public ResponseEntity<MyPageResponse> myPage(@RequestBody @Valid IdRequest idRequest) {
         MyPageResponse myPageResponse = userService.myPage(idRequest.getUserId());
         return ResponseEntity.ok().body(myPageResponse);
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteUser(@RequestBody IdRequest idRequest) {
+    public ResponseEntity<Void> deleteUser(@RequestBody @Valid IdRequest idRequest) {
         userService.deleteUser(idRequest.getUserId());
         return ResponseEntity.ok().build();
     }
 
     @PutMapping
-    public ResponseEntity<Void> editUser(@RequestBody PwdRequest pwdRequest) {
+    public ResponseEntity<Void> editUser(@RequestBody @Valid PwdRequest pwdRequest) {
         userService.editPwd(pwdRequest);
         return ResponseEntity.ok().build();
     }
