@@ -20,7 +20,6 @@ public class ApplicationService {
     private final ApplicationRepository applicationRepository;
 
     public void joinApply(ApplyRequest applyRequest) {
-        applicationRepository.findByBoardId(applyRequest.getBoardId()).orElseThrow(() -> new BoardNotFoundException("게시글을 찾을 수 없습니다"));
         Application application = Application.builder()
                 .boardId(applyRequest.getBoardId())
                 .userId(applyRequest.getUserId())
