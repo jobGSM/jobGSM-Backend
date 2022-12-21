@@ -34,12 +34,12 @@ public class ApplicationController {
     }
 
     @GetMapping("/board/applicants/{boardId}")
-    public List<ApplicantsResponse> applicantsList(@PathVariable @NotEmpty Long boardId) {
+    public List<ApplicantsResponse> applicantsList(@PathVariable @NotNull Long boardId) {
         return applicationService.applicantsList(boardId);
     }
 
     @GetMapping("/user/application/{userId}")
-    public List<BoardIdResponse> applicationsList(@PathVariable @NotEmpty Long userId) {
+    public List<BoardIdResponse> applicationsList(@PathVariable @NotNull Long userId) {
         return applicationService.applicationsList(userId);
     }
 }
