@@ -1,15 +1,17 @@
 package com.example.jobgsm.domain.signup.controller;
 
 
+import com.example.jobgsm.domain.signup.dto.request.MemberSignInRequestDto;
 import com.example.jobgsm.domain.signup.dto.request.MemberSignUpRequestDto;
+import com.example.jobgsm.domain.signup.dto.response.MemberSignUpResponseDto;
+import com.example.jobgsm.domain.signup.dto.response.TokenResponseDto;
 import com.example.jobgsm.domain.signup.service.impl.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletRequest;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -18,8 +20,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberController {
     private final MemberServiceImpl memberService;
 
+
     @PostMapping("/signup")
-    public Integer signup(@RequestBody @Validated MemberSignUpRequestDto signUpDto){
+    public MemberSignUpResponseDto signup(@RequestBody @Validated MemberSignUpRequestDto signUpDto){
         return memberService.signUp(signUpDto);
     }
+
+    @PostMapping("/login")
+    public TokenResponseDto login(@RequestBody @Validated MemberSignInRequestDto signInDto) {
+        return memberService.login(signInDto);
+    }
+
+    @PutMapping("/newAccess")
+    public TokenResponseDto issueAccessToken(HttpServletRequest request) {
+        return memberService.issueAccessToken(request);
+    }
+
+
 }

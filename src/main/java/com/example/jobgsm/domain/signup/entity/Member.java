@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -24,36 +25,43 @@ import java.util.Collection;
 public class Member implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "user_id")
     private Integer memberId;
 
-    @Column(name = "user_id")
-    private String loginId;
+    @Column(name = "email")
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$", message = "이메일 형식에 맞지 않습니다.")
+    private String email;
 
-    @Column(name = "user_password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "user_name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "user_grade")
-    private Integer grade;
+    @Column(name = "grade")
+    private String grade;
+
 
     @Transient
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @Transient
     private String refreshToken;
+
 
     public void addUserAuthority() {
         this.role = Role.USER;
     }
+
     public void passwordEncode(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);
     }
+
     public void updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -62,9 +70,10 @@ public class Member implements UserDetails {
         return auth;
     }
 
+
     @Override
     public String getUsername() {
-        return loginId;
+        return name;
     }
 
     @Override
@@ -85,5 +94,10 @@ public class Member implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
     }
 }

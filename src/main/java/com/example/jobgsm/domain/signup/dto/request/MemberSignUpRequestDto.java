@@ -14,8 +14,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 public class MemberSignUpRequestDto {
     @NotBlank
-    @Size(min = 3,max=10,message = "아이디는 2자 이상 10자 이하로 입력해주세요.")
-    private String loginId;
+    private String email;
 
     @NotBlank
     @Size(min = 6, max = 20, message = "비밀번호는 6자 이상 20자 이하로 입력해주세요.")
@@ -24,15 +23,13 @@ public class MemberSignUpRequestDto {
     @NotBlank(message = "이름을 입력해주세요")
     private String name;
 
-    @Positive  // 양수만 받는다
-    @Max(value = 3, message = "학년은 1~3학년 사이여야 합니다.")
-    @Min(value = 1, message = "학년은 1~3학년 사이여야 합니다.")
-    @NotNull
-    private Integer grade;
+    @NotBlank(message = "학년 또는 직급을 선택해주세요")
+    private String grade;
 
+    
     public Member toEntity(){
         return Member.builder()
-                .loginId(loginId)
+                .email(email)
                 .password(password)
                 .name(name)
                 .grade(grade)
