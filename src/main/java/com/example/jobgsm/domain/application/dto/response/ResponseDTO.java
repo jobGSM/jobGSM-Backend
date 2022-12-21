@@ -14,14 +14,14 @@ public class ResponseDTO {
 
     private Long userId;
     private Long boardId;
-    private String userName;
-    private String userGrade;
+    private String name;
+    private String grade;
 
 
     public ResponseDTO(Application application) {
         this.userId = application.getUserId();
         this.boardId = application.getBoardId();
-        this.userName = application.getUserName();
-        this.userGrade = application.getUserGrade();
+        this.name = application.getName();
+        this.grade = application.getGrade();
     }
 }

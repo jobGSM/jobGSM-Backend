@@ -21,8 +21,8 @@ public class ApplicationService {
         Application application = Application.builder()
                 .boardId(applyRequest.getBoardId())
                 .userId(applyRequest.getUserId())
-                .userName(applyRequest.getUserName())
-                .userGrade(applyRequest.getUserGrade())
+                .name(applyRequest.getName())
+                .grade(applyRequest.getGrade())
                 .build();
         applicationRepository.save(application);
     }

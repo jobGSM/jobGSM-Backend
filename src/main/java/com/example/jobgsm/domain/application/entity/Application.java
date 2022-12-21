@@ -22,6 +22,6 @@ public class Application {
     private Long pk;
     private Long userId;
     private Long boardId;
-    private String userName;
-    private String userGrade;
+    private String name;
+    private String grade;
 }

@@ -17,7 +17,7 @@ public class ApplyRequest {
     @NotNull
     private Long boardId;
     @NotEmpty
-    private String userName;
+    private String name;
     @NotEmpty
-    private String userGrade;
+    private String grade;
 }
