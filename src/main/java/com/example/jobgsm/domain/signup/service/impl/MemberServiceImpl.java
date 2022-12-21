@@ -39,10 +39,15 @@ public class MemberServiceImpl implements MemberService {
         member.passwordEncode(passwordEncoder);
 
 
+        String email = member.getEmail();
+        String password = member.getPassword();
         String name = member.getName();
         String grade = member.getGrade();
 
+
         return MemberSignUpResponseDto.builder()
+                .email(email)
+                .password(password)
                 .name(name)
                 .grade(grade)
                 .build();

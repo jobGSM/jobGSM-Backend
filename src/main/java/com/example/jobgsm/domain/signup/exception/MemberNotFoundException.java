@@ -1,15 +1,16 @@
 package com.example.jobgsm.domain.signup.exception;
 
 
+import com.example.jobgsm.global.exception.ErrorCode;
 import lombok.Getter;
 
 @Getter
 public class MemberNotFoundException extends RuntimeException{
 
-    private final ErrorCode error;
+    private final ErrorCode errorCode;
 
     public MemberNotFoundException(String message) {
         super(message);
-        this.error = ErrorCode.MEMBER_NOT_FOUND;
+        this.errorCode = ErrorCode.MEMBER_NOT_FOUND;
     }
 }

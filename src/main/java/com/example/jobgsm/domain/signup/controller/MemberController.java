@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/member")
 @Slf4j
 public class MemberController {
     private final MemberServiceImpl memberService;
