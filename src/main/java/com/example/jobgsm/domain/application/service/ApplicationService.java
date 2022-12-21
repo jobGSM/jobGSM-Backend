@@ -2,6 +2,7 @@ package com.example.jobgsm.domain.application.service;
 
 import com.example.jobgsm.domain.application.dto.request.ApplyRequest;
 import com.example.jobgsm.domain.application.dto.request.CancelRequest;
+import com.example.jobgsm.domain.application.dto.response.ApplicantsResponse;
 import com.example.jobgsm.domain.application.dto.response.ResponseDTO;
 import com.example.jobgsm.domain.application.entity.Application;
 import com.example.jobgsm.domain.application.repository.ApplicationRepository;
@@ -32,9 +33,9 @@ public class ApplicationService {
         applicationRepository.deleteApplicationByBoardIdAndUserId(cancelRequest.getBoardId(), cancelRequest.getUserId());
     }
 
-    public List<ResponseDTO> applicantsList(Long boardId) {
-        return applicationRepository.findApplicationsByBoardId(boardId).stream()
-                .map(ResponseDTO::new)
+    public List<ApplicantsResponse> applicantsList(Long boardId) {
+        return applicationRepository.findApplicantsByBoardId(boardId).stream()
+                .map(ApplicantsResponse::new)
                 .collect(Collectors.toList());
     }
 
