@@ -1,4 +1,4 @@
-package com.example.jobgsm.domain.signup.security.jwt;
+package com.example.jobgsm.global.security.jwt;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

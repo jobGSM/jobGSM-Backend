@@ -1,4 +1,4 @@
-package com.example.jobgsm.domain.signup.dto.request;
+package com.example.jobgsm.domain.signup.presentation.dto.request;
 
 
 import com.example.jobgsm.domain.signup.entity.Member;

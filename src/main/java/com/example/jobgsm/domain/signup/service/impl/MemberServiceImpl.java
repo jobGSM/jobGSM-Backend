@@ -1,14 +1,14 @@
 package com.example.jobgsm.domain.signup.service.impl;
 
-import com.example.jobgsm.domain.signup.dto.request.MemberSignInRequestDto;
-import com.example.jobgsm.domain.signup.dto.request.MemberSignUpRequestDto;
-import com.example.jobgsm.domain.signup.dto.response.MemberSignUpResponseDto;
-import com.example.jobgsm.domain.signup.dto.response.TokenResponseDto;
+import com.example.jobgsm.domain.signup.presentation.dto.request.MemberSignInRequestDto;
+import com.example.jobgsm.domain.signup.presentation.dto.request.MemberSignUpRequestDto;
+import com.example.jobgsm.domain.signup.presentation.dto.response.MemberSignUpResponseDto;
+import com.example.jobgsm.domain.signup.presentation.dto.response.TokenResponseDto;
 import com.example.jobgsm.domain.signup.entity.Member;
 import com.example.jobgsm.domain.signup.exception.MemberNotFoundException;
 import com.example.jobgsm.domain.signup.exception.PasswordNotMatch;
 import com.example.jobgsm.domain.signup.repository.MemberRepository;
-import com.example.jobgsm.domain.signup.security.jwt.JwtTokenProvider;
+import com.example.jobgsm.global.security.jwt.JwtTokenProvider;
 import com.example.jobgsm.domain.signup.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

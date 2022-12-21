@@ -1,4 +1,4 @@
-package com.example.jobgsm.domain.signup.security.jwt;
+package com.example.jobgsm.global.security.jwt;
 
 
 import com.example.jobgsm.domain.signup.exception.MemberNotFoundException;

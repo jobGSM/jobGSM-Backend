@@ -1,7 +1,7 @@
 package com.example.jobgsm.domain.signup.entity;
 
 
-import com.example.jobgsm.domain.signup.role.Role;
+import com.example.jobgsm.global.role.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
