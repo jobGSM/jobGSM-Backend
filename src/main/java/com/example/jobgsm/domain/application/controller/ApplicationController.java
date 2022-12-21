@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -30,12 +32,12 @@ public class ApplicationController {
     }
 
     @GetMapping("/board/applications/{boardId}")
-    public List<ResponseDTO> applicantsList(@PathVariable Long boardId) {
+    public List<ResponseDTO> applicantsList(@PathVariable @NotEmpty Long boardId) {
         return applicationService.applicantsList(boardId);
     }
 
     @GetMapping("/user/application/{userId}")
-    public List<ResponseDTO> applicationsList(@PathVariable Long userId) {
+    public List<ResponseDTO> applicationsList(@PathVariable @NotEmpty Long userId) {
         return applicationService.applicationsList(userId);
     }
 }

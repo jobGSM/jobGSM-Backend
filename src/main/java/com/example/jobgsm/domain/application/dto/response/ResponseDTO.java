@@ -15,7 +15,7 @@ public class ResponseDTO {
     private Long userId;
     private Long boardId;
     private String userName;
-    private Integer userGrade;
+    private String userGrade;
 
 
     public ResponseDTO(Application application) {

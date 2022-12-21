@@ -23,5 +23,5 @@ public class Application {
     private Long userId;
     private Long boardId;
     private String userName;
-    private Integer userGrade;
+    private String userGrade;
 }

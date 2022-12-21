@@ -18,6 +18,6 @@ public class ApplyRequest {
     private Long boardId;
     @NotEmpty
     private String userName;
-    @NotNull
-    private Integer userGrade;
+    @NotEmpty
+    private String userGrade;
 }
