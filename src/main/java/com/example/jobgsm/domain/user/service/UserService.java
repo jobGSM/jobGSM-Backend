@@ -21,6 +21,7 @@ public class UserService {
     private final UserUtil userUtil;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public MyPageResponse myPage(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("유저를 찾을 수 없습니다."));
         return MyPageResponse.builder()
@@ -37,6 +38,7 @@ public class UserService {
 //        userRepository.deleteById(id);
 //    }
 
+    @Transactional
     public void deleteUser(PwdRequest pwdRequest){
         User user = userUtil.currentUser();
         if(!passwordEncoder.matches(pwdRequest.getPassword(), user.getPassword())) {
