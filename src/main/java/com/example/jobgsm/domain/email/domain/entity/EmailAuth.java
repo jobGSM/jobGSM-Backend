@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.redis.core.RedisHash;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Getter
@@ -16,11 +18,10 @@ import javax.persistence.Id;
 @RedisHash(value = "emailAuth" , timeToLive = 60 * 15)
 public class EmailAuth {
 
-
     @Id
     private String email;
 
-    @Length(max = 4)
+    @Length(max = 6)
     private String randomValue;
     private Boolean authentication;
 

@@ -18,15 +18,15 @@ import javax.transaction.Transactional;
 import java.util.Random;
 
 @Service
-@EnableAsync
 @RequiredArgsConstructor
+
 public class EmailSendService {
 
     private final EmailAuthRepository emailAuthRepository;
     private final JavaMailSender mailSender;
 
     @Async
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional()
     public void sendEmail(EmailSentDto emailSentDto){
 
         Random random = new Random();
@@ -36,8 +36,8 @@ public class EmailSendService {
     }
 
     private void sendAuthEmail(String email, String authKey) {
-        String subject = "잡쥐 인증번호";
-        String text = "인증을 위한 인증번호는 <strong>" + authKey + "<strong /> 입니다. <br />";
+        String subject = "잡쥐 회원가입 이메일 인증번호";
+        String text = "잡쥐 회원가입 인증번호는 <strong>" + authKey + "<strong /> 입니다. <br />";
         EmailAuth emailAuthEntity = emailAuthRepository.findById(email)
                 .orElse(EmailAuth.builder()
                         .authentication(false)
@@ -45,6 +45,7 @@ public class EmailSendService {
                         .attemptCount(0)
                         .email(email)
                         .build());
+
         if (emailAuthEntity.getAttemptCount() >= 10) {
             throw new ManyRequestEmailAuthException("발송 횟수 초과");
         }

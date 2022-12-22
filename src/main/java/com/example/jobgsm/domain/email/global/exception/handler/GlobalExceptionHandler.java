@@ -17,10 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class GlobalExceptionHandler {
 
-
-
-
-
     @ExceptionHandler(AuthCodeExpiredException.class)
     public ResponseEntity<ErrorResponse> handleAuthCodeExpiredException(HttpServletRequest request , AuthCodeExpiredException e) {
         ErrorResponse errorResponse = new ErrorResponse(e.getErrorCode().getMessage(), e.getErrorCode().getStatus());

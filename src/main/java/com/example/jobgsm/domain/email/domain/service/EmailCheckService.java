@@ -5,6 +5,7 @@ import com.example.jobgsm.domain.email.domain.exception.MemberNotFoundException;
 import com.example.jobgsm.domain.email.domain.exception.MisMatchAuthCodeException;
 import com.example.jobgsm.domain.email.domain.repository.EmailAuthRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -16,7 +17,7 @@ public class EmailCheckService {
 
     private final EmailAuthRepository emailAuthRepository;
 
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional()
     public void checkEmail(String email , String authKey) {
         EmailAuth emailAuthEntity = emailAuthRepository.findById(email)
                 .orElseThrow(()-> new MemberNotFoundException("유저를 찾을 수 없습니다."));

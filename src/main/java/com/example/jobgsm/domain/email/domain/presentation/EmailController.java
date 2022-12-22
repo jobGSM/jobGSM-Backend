@@ -4,6 +4,7 @@ import com.example.jobgsm.domain.email.domain.presentation.dto.request.EmailSent
 import com.example.jobgsm.domain.email.domain.service.EmailCheckService;
 import com.example.jobgsm.domain.email.domain.service.EmailSendService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import javax.validation.constraints.Email;
 @RequiredArgsConstructor
 @RequestMapping("/email")
 public class EmailController {
+
 
     private final EmailSendService emailSendService;
     private final EmailCheckService emailCheckService;
