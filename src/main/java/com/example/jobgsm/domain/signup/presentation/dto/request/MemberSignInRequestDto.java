@@ -14,12 +14,11 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class MemberSignInRequestDto {
 
+
     @NotBlank
-    @NotBlank(message = "email은  필수 입력값입니다.")
     private String email;
 
     @NotBlank
     private String password;
-
 
 }

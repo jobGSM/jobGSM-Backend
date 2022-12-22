@@ -19,10 +19,10 @@ public class MemberSignUpRequestDto {
     @NotBlank
     private String password;
 
-    @NotBlank(message = "이름을 입력해주세요")
+    @NotBlank
     private String name;
 
-    @NotBlank(message = "학년 또는 직급을 선택해주세요")
+    @NotBlank
     private String grade;
 
     public Member toEntity(){
