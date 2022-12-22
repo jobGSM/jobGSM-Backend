@@ -4,7 +4,6 @@ import com.example.jobgsm.domain.email.domain.entity.EmailAuth;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
 public interface EmailAuthRepository extends CrudRepository<EmailAuth, String> {
 }
 

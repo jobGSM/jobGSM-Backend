@@ -19,7 +19,7 @@ import java.util.Random;
 @Service
 @EnableAsync
 @RequiredArgsConstructor
-public class EmailSendService {
+public class EmailSenderService {
 
     private final EmailAuthRepository emailAuthRepository;
     private final JavaMailSender mailSender;
