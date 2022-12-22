@@ -4,6 +4,7 @@ import com.example.jobgsm.domain.application.dto.request.ApplyRequest;
 import com.example.jobgsm.domain.application.dto.request.CancelRequest;
 import com.example.jobgsm.domain.application.dto.response.ApplicantsResponse;
 import com.example.jobgsm.domain.application.dto.response.BoardIdResponse;
+import com.example.jobgsm.domain.application.entity.Application;
 import com.example.jobgsm.domain.application.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
