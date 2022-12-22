@@ -15,28 +15,29 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/board")
 public class ApplicationController {
 
     private final ApplicationService applicationService;
 
-    @PostMapping("/board/application")
+    @PostMapping("/application")
     public ResponseEntity<Void> joinApply(@RequestBody @Valid ApplyRequest applyRequest) {
         applicationService.joinApply(applyRequest);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/board/application")
+    @DeleteMapping("/application")
     public ResponseEntity<Void> joinCancel(@RequestBody @Valid CancelRequest cancelRequest) {
         applicationService.joinCancel(cancelRequest);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/board/applicants/{boardId}")
+    @GetMapping("/applicants/{boardId}")
     public List<ApplicantsResponse> applicantsList(@PathVariable @NotNull Long boardId) {
         return applicationService.applicantsList(boardId);
     }
 
-    @GetMapping("/user/application/{userId}")
+    @GetMapping("/application/{userId}")
     public List<BoardIdResponse> applicationsList(@PathVariable @NotNull Long userId) {
         return applicationService.applicationsList(userId);
     }
