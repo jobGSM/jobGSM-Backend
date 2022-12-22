@@ -13,6 +13,7 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class EmailCheckerService {
+
     private final EmailAuthRepository emailAuthRepository;
 
     @Transactional(rollbackFor = Exception.class)
