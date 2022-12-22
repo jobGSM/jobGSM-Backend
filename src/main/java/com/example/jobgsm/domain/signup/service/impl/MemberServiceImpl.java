@@ -3,7 +3,7 @@ package com.example.jobgsm.domain.signup.service.impl;
 import com.example.jobgsm.domain.signup.presentation.dto.request.MemberSignInRequestDto;
 import com.example.jobgsm.domain.signup.presentation.dto.request.MemberSignUpRequestDto;
 import com.example.jobgsm.domain.signup.presentation.dto.response.MemberSignUpResponseDto;
-import com.example.jobgsm.domain.signup.presentation.dto.response.TokenResponseDto;
+import com.example.jobgsm.domain.signup.presentation.dto.response.MemberSignInResponseDto;
 import com.example.jobgsm.domain.signup.entity.Member;
 import com.example.jobgsm.domain.signup.exception.MemberNotFoundException;
 import com.example.jobgsm.domain.signup.exception.PasswordNotMatch;
@@ -32,17 +32,19 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public MemberSignUpResponseDto signUp(MemberSignUpRequestDto signUpDto) {
+    public void signUp(MemberSignUpRequestDto signUpDto) {
 
         Member member = memberRepository.save(signUpDto.toEntity());
         member.addUserAuthority();
         member.passwordEncode(passwordEncoder);
 
+        /*
 
         String email = member.getEmail();
         String password = member.getPassword();
         String name = member.getName();
         String grade = member.getGrade();
+
 
 
         return MemberSignUpResponseDto.builder()
@@ -51,11 +53,13 @@ public class MemberServiceImpl implements MemberService {
                 .name(name)
                 .grade(grade)
                 .build();
+
+         */
     }
 
     @Transactional
     @Override
-    public TokenResponseDto login(MemberSignInRequestDto signInDto) {
+    public MemberSignInResponseDto login(MemberSignInRequestDto signInDto) {
         Member member = memberRepository.findByEmail(signInDto.getEmail())
                 .orElseThrow(() -> new MemberNotFoundException("존재하지 않은 회원 입니다"));
 
@@ -63,19 +67,23 @@ public class MemberServiceImpl implements MemberService {
 
         String accessToken = jwtTokenProvider.createAccessToken(member.getEmail(), String.valueOf(member.getRole()));
         String refreshToken = jwtTokenProvider.createRefreshToken();
+        Integer userId = member.getMemberId();
+        String name = member.getName();
 
         member.updateRefreshToken(refreshToken);
         memberRepository.save(member);
 
-        return TokenResponseDto.builder()
+        return MemberSignInResponseDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .userId(userId)
+                .name(name)
                 .build();
     }
 
     @Transactional
     @Override
-    public TokenResponseDto issueAccessToken(HttpServletRequest request) {
+    public MemberSignInResponseDto issueAccessToken(HttpServletRequest request) {
 
         String accessToken = jwtTokenProvider.resolveAccessToken(request);
         String refreshToken = jwtTokenProvider.resolveRefreshToken(request);
@@ -99,7 +107,7 @@ public class MemberServiceImpl implements MemberService {
                 log.info("Refresh Token 이 유효하지 않습니다.");
             }
         }
-        return TokenResponseDto.builder()
+        return MemberSignInResponseDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .build();

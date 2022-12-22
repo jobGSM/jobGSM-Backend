@@ -3,17 +3,17 @@ package com.example.jobgsm.domain.signup.service;
 import com.example.jobgsm.domain.signup.presentation.dto.request.MemberSignInRequestDto;
 import com.example.jobgsm.domain.signup.presentation.dto.request.MemberSignUpRequestDto;
 import com.example.jobgsm.domain.signup.presentation.dto.response.MemberSignUpResponseDto;
-import com.example.jobgsm.domain.signup.presentation.dto.response.TokenResponseDto;
+import com.example.jobgsm.domain.signup.presentation.dto.response.MemberSignInResponseDto;
 
 import javax.servlet.http.HttpServletRequest;
 
 
 public interface MemberService {
-    MemberSignUpResponseDto signUp (MemberSignUpRequestDto requestDto);
+    void signUp (MemberSignUpRequestDto requestDto);
 
-    TokenResponseDto login(MemberSignInRequestDto requestDto);
+    MemberSignInResponseDto login(MemberSignInRequestDto requestDto);
 
-    TokenResponseDto issueAccessToken(HttpServletRequest request);
+    MemberSignInResponseDto issueAccessToken(HttpServletRequest request);
 
 
 
