@@ -1,4 +1,4 @@
-package com.example.jobgsm.global;
+package com.example.jobgsm.global.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

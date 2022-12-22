@@ -1,8 +1,8 @@
-package com.example.jobgsm.global.handler;
+package com.example.jobgsm.global.exception.handler;
 
 import com.example.jobgsm.domain.application.exception.BoardNotFoundException;
-import com.example.jobgsm.global.ErrorCode;
-import com.example.jobgsm.global.ErrorResponse;
+import com.example.jobgsm.global.exception.ErrorCode;
+import com.example.jobgsm.global.exception.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

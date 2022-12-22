@@ -1,6 +1,6 @@
 package com.example.jobgsm.domain.application.exception;
 
-import com.example.jobgsm.global.ErrorCode;
+import com.example.jobgsm.global.exception.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
