@@ -24,8 +24,8 @@ public class UserController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteUser(@RequestBody @Valid IdRequest idRequest) {
-        userService.deleteUser(idRequest.getUserId());
+    public ResponseEntity<Void> deleteUser(@RequestBody @Valid PwdRequest pwdRequest) {
+        userService.deleteUser(pwdRequest);
         return ResponseEntity.ok().build();
     }
 
