@@ -32,7 +32,6 @@ public class Board {
 
 
     private LocalDateTime createdDate = LocalDateTime.now(); // 생성일
-
     private LocalDateTime modifiedDate; // 수정일
 
     @Builder
@@ -52,6 +51,5 @@ public class Board {
         this.boardDate = boardDate;
         this.boardApplicant = boardApplicant;
         this.modifiedDate = LocalDateTime.now();
-
     }
 }

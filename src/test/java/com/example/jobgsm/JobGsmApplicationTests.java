@@ -1,6 +1,6 @@
 package com.example.jobgsm;
 
-import com.example.jobgsm.domain.board.entity.BoardRepository;
+import com.example.jobgsm.domain.board.entity.repository.BoardRepository;
 import com.example.jobgsm.domain.board.entity.Board;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
