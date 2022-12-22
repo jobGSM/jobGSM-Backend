@@ -1,18 +1,17 @@
 package com.example.jobgsm.domain.email.domain.presentation.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmailSentDto {
     @Email
-    private final String email;
-
-    @JsonCreator
-    public EmailSentDto(@JsonProperty("email") String email) {
-        this.email = email;
-    }
+    @NotBlank(message = "이메일(필수)")
+    private String email;
 }

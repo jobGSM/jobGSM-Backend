@@ -8,8 +8,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.data.redis.core.RedisHash;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
 
 @Getter
 @Builder
@@ -17,6 +16,7 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @RedisHash(value = "emailAuth" , timeToLive = 60 * 15)
 public class EmailAuth {
+
 
     @Id
     private String email;

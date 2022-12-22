@@ -4,8 +4,8 @@ package com.example.jobgsm.domain.email.global.common;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
-import java.time.Duration;
 
+import java.time.Duration;
 
 @Component
 public class RedisDao {

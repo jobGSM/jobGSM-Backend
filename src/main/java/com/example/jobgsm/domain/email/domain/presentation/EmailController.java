@@ -4,9 +4,6 @@ import com.example.jobgsm.domain.email.domain.presentation.dto.request.EmailSent
 import com.example.jobgsm.domain.email.domain.service.EmailCheckService;
 import com.example.jobgsm.domain.email.domain.service.EmailSendService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,19 +15,17 @@ import javax.validation.constraints.Email;
 @RequestMapping("/email")
 public class EmailController {
 
-
     private final EmailSendService emailSendService;
     private final EmailCheckService emailCheckService;
 
-    @PostMapping(value = "/send" , consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> sendEmail(@Valid @RequestBody EmailSentDto emailSentDto) {
-        emailSendService.sendEmail(emailSentDto);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    @PostMapping
+    public ResponseEntity<Void> authEmail(@RequestBody @Valid EmailSentDto emailSentDto) {
+        emailSendService.execute(emailSentDto);
+        return ResponseEntity.ok().build();
     }
-
     @RequestMapping(method = RequestMethod.HEAD)
-    public ResponseEntity<Void> mailCheck(@Email @RequestParam String email, @RequestParam String authKey) {
-        emailCheckService.checkEmail(email, authKey);
+    public ResponseEntity<Void> mailVerify(@Email @RequestParam String email, @RequestParam String authKey){
+        emailCheckService.execute(email,authKey);
         return ResponseEntity.ok().build();
     }
 }

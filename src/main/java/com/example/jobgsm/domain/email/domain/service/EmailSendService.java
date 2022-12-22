@@ -1,5 +1,4 @@
 package com.example.jobgsm.domain.email.domain.service;
-
 import com.example.jobgsm.domain.email.domain.entity.EmailAuth;
 import com.example.jobgsm.domain.email.domain.exception.AuthCodeExpiredException;
 import com.example.jobgsm.domain.email.domain.exception.ManyRequestEmailAuthException;
@@ -11,23 +10,23 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.transaction.Transactional;
 import java.util.Random;
 
 @Service
+@EnableAsync
 @RequiredArgsConstructor
-
 public class EmailSendService {
 
     private final EmailAuthRepository emailAuthRepository;
     private final JavaMailSender mailSender;
 
     @Async
-    @Transactional()
-    public void sendEmail(EmailSentDto emailSentDto){
+    @Transactional(rollbackFor = Exception.class)
+    public void execute(EmailSentDto emailSentDto){
 
         Random random = new Random();
         String authKey = String.valueOf(random.nextInt(8888) + 1111);
@@ -36,8 +35,8 @@ public class EmailSendService {
     }
 
     private void sendAuthEmail(String email, String authKey) {
-        String subject = "잡쥐 회원가입 이메일 인증번호";
-        String text = "잡쥐 회원가입 인증번호는 <strong>" + authKey + "<strong /> 입니다. <br />";
+        String subject = "잡쥐 인증번호";
+        String text = "잡쥐 회원 가입을 위한 인증번호는 " + authKey + "입니다. <br />";
         EmailAuth emailAuthEntity = emailAuthRepository.findById(email)
                 .orElse(EmailAuth.builder()
                         .authentication(false)
@@ -45,13 +44,12 @@ public class EmailSendService {
                         .attemptCount(0)
                         .email(email)
                         .build());
-
-        if (emailAuthEntity.getAttemptCount() >= 10) {
+        if (emailAuthEntity.getAttemptCount() >= 3) {
             throw new ManyRequestEmailAuthException("발송 횟수 초과");
         }
-
         emailAuthEntity.updateRandomValue(authKey);
         emailAuthEntity.increaseAttemptCount();
+
 
         emailAuthRepository.save(emailAuthEntity);
         try{
