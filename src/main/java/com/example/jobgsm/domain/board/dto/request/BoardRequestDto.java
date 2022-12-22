@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardRequestDto {
-
-    private Long boardId;//id
+    private Long boardId;
     private String boardTitle;//제목
     private String boardContent;//내용
     private String boardWriter;//작성자

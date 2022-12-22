@@ -14,7 +14,6 @@ public class Comment extends Timestamped {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long commentId;
-
     private Long boardId;
     private String commentContents;
     private String commentWriter;

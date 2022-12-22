@@ -5,7 +5,10 @@ import com.example.jobgsm.domain.board.dto.response.BoardResponseDto;
 import com.example.jobgsm.domain.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 
@@ -40,7 +43,7 @@ public class BoardApiController {
 
     //게시글 삭제
     @DeleteMapping
-    public ResponseEntity<Void> delete(@RequestBody BoardRequestDto boardId){
+    public ResponseEntity<Void> delete(@RequestBody @Nullable BoardRequestDto boardId){
         boardService.delete(boardId.getBoardId());
         return ResponseEntity.ok().build();
     }

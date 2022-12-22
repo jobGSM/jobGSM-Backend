@@ -21,15 +21,10 @@ public class Board {
     private Long boardId; // PK
 
     private String boardTitle; // 제목
-
     private String boardContent; // 내용
-
     private String boardWriter; // 작성자
-
     private int boardApplicant; // 모집 인원
-
     private String boardDate;//모집 기한
-
 
     private LocalDateTime createdDate = LocalDateTime.now(); // 생성일
     private LocalDateTime modifiedDate; // 수정일

@@ -14,6 +14,7 @@ public class CommentRequestDto {
     private Long boardId;
     private String commentContents;
     private String commentWriter;
+
     private LocalDateTime createdDate = LocalDateTime.now();
     private LocalDateTime modifiedDate = LocalDateTime.now();
 
