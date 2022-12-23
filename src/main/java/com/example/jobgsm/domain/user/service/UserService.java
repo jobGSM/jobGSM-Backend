@@ -36,7 +36,7 @@ public class UserService {
 //    public void deleteUser(Long id) {
 //        userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("유저를 찾을 수 없습니다."));
 //        userRepository.deleteById(id);
-//    }
+//    }d
 
     @Transactional
     public void deleteUser(PwdRequest pwdRequest){
