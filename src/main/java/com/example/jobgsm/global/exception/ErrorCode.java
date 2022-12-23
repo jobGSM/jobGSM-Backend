@@ -8,7 +8,8 @@ import lombok.Getter;
 public enum ErrorCode {
 
     USER_NOT_FOUND("유저를 찾을 수 없습니다.",404),
-    NOT_NULL("null값은 허용되지 않습니다.", 400);
+    NOT_NULL("null값은 허용되지 않습니다.", 400),
+    PASSWORD_WRONG("비밀번호가 올바르지 않습니다.", 400);
 
     private final String message;
     private final int status;

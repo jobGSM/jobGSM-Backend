@@ -4,11 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class PwdRequest {
 
-    private Long id;
-    private String userPassword;
+    @NotNull
+    private Long userId;
+    @NotEmpty
+    private String password;
 }

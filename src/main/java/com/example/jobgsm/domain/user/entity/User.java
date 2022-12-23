@@ -18,22 +18,13 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String userId;
-    private String userPassword;
-    private String userName;
-    private Integer userGrade;
+    private Long userId;
+    private String email;
+    private String password;
+    private String name;
+    private String grade;
 
-    public void updateUserId(String userId) {
-        this.userId = userId;
-    }
-    public void updateUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-    public void updateUserName(String userName) {
-        this.userName = userName;
-    }
-    public void updateUserGrade(Integer userGrade) {
-        this.userGrade = userGrade;
+    public void updatePassword(String password) {
+        this.password = password;
     }
 }
