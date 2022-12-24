@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 // setting
 // develop
+// 김경수
 @SpringBootApplication
 public class JobGsmApplication {
 
