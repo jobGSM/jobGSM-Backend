@@ -2,7 +2,6 @@ package com.example.jobgsm.global3.security.jwt;
 
 
 import com.example.jobgsm.domain3.signup.exception.MemberNotFoundException;
-import com.example.jobgsm.domain3.signup.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;

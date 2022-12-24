@@ -7,6 +7,8 @@ import com.example.jobgsm.domain3.signup.presentation.dto.response.MemberSignInR
 import com.example.jobgsm.domain3.signup.service.impl.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -32,5 +34,11 @@ public class MemberController {
     @PutMapping("/newAccess")
     public MemberSignInResponseDto issueAccessToken(HttpServletRequest request) {
         return memberService.issueAccessToken(request);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization")String accessToken){
+        memberService.execute(accessToken);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

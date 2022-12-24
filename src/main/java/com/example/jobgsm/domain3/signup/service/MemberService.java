@@ -14,6 +14,8 @@ public interface MemberService {
 
     MemberSignInResponseDto issueAccessToken(HttpServletRequest request);
 
+    void execute(String accessToken);
+
 
 
 }

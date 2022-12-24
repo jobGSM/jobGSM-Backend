@@ -1,12 +1,17 @@
 package com.example.jobgsm.domain3.signup.service.impl;
 
+import com.example.jobgsm.domain3.signup.entity.BlackList;
+import com.example.jobgsm.domain3.signup.entity.RefreshToken;
+import com.example.jobgsm.domain3.signup.exception.BlackListAlreadyExistException;
+import com.example.jobgsm.domain3.signup.exception.RefreshTokenNotFoundException;
 import com.example.jobgsm.domain3.signup.presentation.dto.request.MemberSignInRequestDto;
 import com.example.jobgsm.domain3.signup.presentation.dto.request.MemberSignUpRequestDto;
 import com.example.jobgsm.domain3.signup.presentation.dto.response.MemberSignInResponseDto;
 import com.example.jobgsm.domain3.signup.entity.Member;
 import com.example.jobgsm.domain3.signup.exception.MemberNotFoundException;
 import com.example.jobgsm.domain3.signup.exception.PasswordNotMatch;
-import com.example.jobgsm.domain3.signup.repository.MemberRepository;
+import com.example.jobgsm.domain3.signup.repository.BlackListRepository;
+import com.example.jobgsm.domain3.signup.repository.RefreshTokenRepository;
 import com.example.jobgsm.global3.security.jwt.JwtTokenProvider;
 import com.example.jobgsm.domain3.signup.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -23,10 +28,10 @@ import javax.servlet.http.HttpServletRequest;
 @Transactional(readOnly = true)
 public class MemberServiceImpl implements MemberService {
 
-    private final MemberRepository memberRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final BlackListRepository blackListRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-
 
 
     @Transactional
@@ -37,23 +42,6 @@ public class MemberServiceImpl implements MemberService {
         member.addUserAuthority();
         member.passwordEncode(passwordEncoder);
 
-        /*
-
-        String email = member.getEmail();
-        String password = member.getPassword();
-        String name = member.getName();
-        String grade = member.getGrade();
-
-
-
-        return MemberSignUpResponseDto.builder()
-                .email(email)
-                .password(password)
-                .name(name)
-                .grade(grade)
-                .build();
-
-         */
     }
 
     @Transactional
@@ -117,5 +105,25 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void execute(String accessToken){
+        User user = userUtil.currentUser();
+        RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByEmail(user.getEmail()).orElseThrow(()->new RefreshTokenNotFoundException("리프레시 토큰을 찾을 수 없습니다."));
+        refreshTokenRepository.delete(refreshToken);
+        saveBlackList(user.getEmail(),accessToken);
+    }
+    private void saveBlackList(String email, String accessToken){
+        if(redisTemplate.opsForValue().get(accessToken)!=null){
+            throw new BlackListAlreadyExistException("블랙리스트에 이미 등록되어있습니다.");
+        }
+        ZonedDateTime accessTokenExpire = tokenProvider.getExpiredAtToken(accessToken,jwtProperties.getAccessSecret());
+        BlackList blackList = BlackList.builder()
+                .email(email)
+                .accessToken(accessToken)
+                .timeToLive(accessTokenExpire)
+                .build();
+        blackListRepository.save(blackList);
+
+    }
 
 }
