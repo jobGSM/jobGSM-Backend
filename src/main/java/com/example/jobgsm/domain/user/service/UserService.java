@@ -1,7 +1,7 @@
 package com.example.jobgsm.domain.user.service;
 
-import com.example.jobgsm.domain.user.dto.request.PwdRequest;
-import com.example.jobgsm.domain.user.dto.response.MyPageResponse;
+import com.example.jobgsm.domain.user.presentation.dto.request.PwdRequest;
+import com.example.jobgsm.domain.user.presentation.dto.response.MyPageResponse;
 import com.example.jobgsm.domain.user.entity.User;
 import com.example.jobgsm.domain.user.exception.PasswordWrongException;
 import com.example.jobgsm.domain.user.exception.UserNotFoundException;
@@ -25,7 +25,7 @@ public class UserService {
     public MyPageResponse myPage(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("유저를 찾을 수 없습니다."));
         return MyPageResponse.builder()
-                .userId(user.getUserId())
+                .userId(user.getMemberId())
                 .email(user.getEmail())
                 .password(user.getPassword())
                 .name(user.getName())
