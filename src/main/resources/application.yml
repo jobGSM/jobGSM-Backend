@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/job-gsm?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: '123456'
     driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    url: jdbc:mysql://localhost:3306/job-gsm?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    password: '123456'
   jpa:
     open-in-view: 'false'
     generate-ddl: 'false'
