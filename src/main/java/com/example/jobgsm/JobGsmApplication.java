@@ -7,7 +7,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 // setting
 // develop
 // 김경수
-
 @SpringBootApplication
 @EnableAsync
 public class JobGsmApplication {
