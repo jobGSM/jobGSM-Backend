@@ -1,0 +1,18 @@
+spring:
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    host: smtp.gmail.com
+    username: jobGSM2023@gmail.com
+    password: yvxcaenfpjfdffkw
+    port: '587'
+  redis:
+    host: 127.0.0.1
+    port: '6379'
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
