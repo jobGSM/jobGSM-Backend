@@ -1,8 +1,6 @@
 package com.example.jobgsm.domain.email.service;
 
 import com.example.jobgsm.domain.email.entity.EmailAuth;
-import com.example.jobgsm.domain.email.exception.MemberNotFoundException;
-import com.example.jobgsm.domain.email.exception.MisMatchAuthCodeException;
 import com.example.jobgsm.domain.email.repository.EmailAuthRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

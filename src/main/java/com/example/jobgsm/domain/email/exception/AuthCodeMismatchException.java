@@ -4,11 +4,11 @@ import com.example.jobgsm.global.exception.ErrorCode;
 import lombok.Getter;
 
 @Getter
-public class MemberNotFoundException extends RuntimeException{
+public class AuthCodeMismatchException extends RuntimeException{
     private final ErrorCode errorCode;
 
-    public MemberNotFoundException(String message) {
+    public AuthCodeMismatchException(String message){
         super(message);
-        this.errorCode = ErrorCode.EXPIRE_EMAIL_CODE;
+        this.errorCode = ErrorCode.MISMATCH_AUTH_CODE;
     }
 }

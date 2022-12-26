@@ -45,7 +45,7 @@ public class EmailSenderService {
                         .attemptCount(0)
                         .email(email)
                         .build());
-        if (emailAuthEntity.getAttemptCount() >= 3) {
+        if (emailAuthEntity.getAttemptCount() >= 5) {
             throw new ManyRequestEmailAuthException("발송 횟수 초과");
         }
         emailAuthEntity.updateRandomValue(authKey);

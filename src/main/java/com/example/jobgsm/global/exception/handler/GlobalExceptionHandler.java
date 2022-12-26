@@ -1,11 +1,10 @@
 package com.example.jobgsm.global.exception.handler;
 
+import com.example.jobgsm.domain.auth.exception.*;
 import com.example.jobgsm.domain.email.exception.AuthCodeExpiredException;
+import com.example.jobgsm.domain.email.exception.AuthCodeMismatchException;
 import com.example.jobgsm.domain.email.exception.ManyRequestEmailAuthException;
-import com.example.jobgsm.domain.email.exception.MisMatchAuthCodeException;
-import com.example.jobgsm.domain.auth.exception.ExistEmailException;
-import com.example.jobgsm.domain.auth.exception.MemberNotFoundException;
-import com.example.jobgsm.domain.auth.exception.PasswordNotMatch;
+import com.example.jobgsm.domain.user.exception.PasswordWrongException;
 import com.example.jobgsm.domain.user.exception.UserNotFoundException;
 import com.example.jobgsm.global.exception.ErrorCode;
 import com.example.jobgsm.global.exception.ErrorResponse;
@@ -23,12 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> UserNotFoundException(UserNotFoundException exception, HttpServletRequest request) {
-        log.warn("UserNotFoundException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
-        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
-        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
-    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> methodValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
@@ -43,53 +36,70 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NOT_NULL.getMessage(), ErrorCode.NOT_NULL.getStatus());
         return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
     }
-    @ExceptionHandler(MemberNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleMemberNotFoundException(HttpServletRequest request , MemberNotFoundException e) {
-        log.warn("handleMemberNotFoundException 발생!!! url:{}, trace:{}", request.getRequestURI(), e.getStackTrace());
-        ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NOT_NULL.getMessage(), ErrorCode.NOT_NULL.getStatus());
-        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+    // 유저를 찾을 수 없습니다
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException exception, HttpServletRequest request) {
+        log.warn("UserNotFoundException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+    @ExceptionHandler(NotVerifyEmailException.class)
+    public ResponseEntity<ErrorResponse> handleNotVerifyEmail(NotVerifyEmailException exception, HttpServletRequest request) {
+        log.warn("NotVerifyEmailException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
 
-    @ExceptionHandler(PasswordNotMatch.class)
-    public ResponseEntity<ErrorResponse> handleMisMatchPasswordException(HttpServletRequest request , PasswordNotMatch e) {
-        log.warn("handleMisMatchPasswordException 발생!!! url:{}, trace:{}", request.getRequestURI(), e.getStackTrace());
+    // 비밀번호가 일치하지 않습니다
+    @ExceptionHandler(PasswordWrongException.class)
+    public ResponseEntity<ErrorResponse> handlePasswordWrongException( PasswordWrongException exception,HttpServletRequest request) {
+        log.warn("handlePasswordWrongException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NOT_NULL.getMessage(), ErrorCode.NOT_NULL.getStatus());
-        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+    @ExceptionHandler(BlackListAlreadyExistException.class)
+    public ResponseEntity<ErrorResponse> handleBlackListAlreadyExistException(BlackListAlreadyExistException exception,HttpServletRequest request) {
+        log.warn("handleMisMatchPasswordException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NOT_NULL.getMessage(), ErrorCode.NOT_NULL.getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
 
-
-    @ExceptionHandler(ExistEmailException.class)
-    public ResponseEntity<ErrorResponse> handleExistEmailException(HttpServletRequest request , ExistEmailException e) {
-        log.warn("handleExistEmailException 발생!!! url:{}, trace:{}", request.getRequestURI(), e.getStackTrace());
+    // 이미 존재하는 이메일 입니다
+    @ExceptionHandler(EmailAlreadyExistException.class)
+    public ResponseEntity<ErrorResponse> handleExistEmailException(EmailAlreadyExistException exception,HttpServletRequest request) {
+        log.warn("handleExistEmailException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NOT_NULL.getMessage(), ErrorCode.NOT_NULL.getStatus());
-        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
+
     @ExceptionHandler(AuthCodeExpiredException.class)
-    public ResponseEntity<ErrorResponse> handleAuthCodeExpiredException(HttpServletRequest request , AuthCodeExpiredException e) {
-        log.warn("handleAuthCodeExpiredException 발생!!! url:{}, trace:{}", request.getRequestURI(), e.getStackTrace());
+    public ResponseEntity<ErrorResponse> handleAuthCodeExpiredException(AuthCodeExpiredException exception, HttpServletRequest request) {
+        log.warn("handleAuthCodeExpiredException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NOT_NULL.getMessage(), ErrorCode.NOT_NULL.getStatus());
-        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
 
     @ExceptionHandler(ManyRequestEmailAuthException.class)
-    public ResponseEntity<ErrorResponse> handleManyRequestEmailAuthException(HttpServletRequest request , ManyRequestEmailAuthException e) {
-        log.warn("handleManyRequestEmailAuthException 발생!!! url:{}, trace:{}", request.getRequestURI(), e.getStackTrace());
+    public ResponseEntity<ErrorResponse> handleManyRequestEmailAuthException(HttpServletRequest request , ManyRequestEmailAuthException exception) {
+        log.warn("handleManyRequestEmailAuthException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NOT_NULL.getMessage(), ErrorCode.NOT_NULL.getStatus());
-        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
 
-    @ExceptionHandler(MisMatchAuthCodeException.class)
-    public ResponseEntity<ErrorResponse> handleMisMatchAuthCodeException(HttpServletRequest request , MisMatchAuthCodeException e) {
-        log.warn("handleMisMatchAuthCodeException 발생!!! url:{}, trace:{}", request.getRequestURI(), e.getStackTrace());
+    @ExceptionHandler(AuthCodeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleAuthCodeMismatchException(HttpServletRequest request , AuthCodeMismatchException exception) {
+        log.warn("handleAuthCodeMismatchException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NOT_NULL.getMessage(), ErrorCode.NOT_NULL.getStatus());
-        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
-    @ExceptionHandler(com.example.jobgsm.domain.email.exception.MemberNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleMemberNotFoundException(HttpServletRequest request , com.example.jobgsm.domain.email.exception.MemberNotFoundException e) {
-        log.warn("handleMemberNotFoundException 발생!!! url:{}, trace:{}", request.getRequestURI(), e.getStackTrace());
+
+    @ExceptionHandler(RefreshTokenNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleRefreshTokenNotFoundException(HttpServletRequest request , RefreshTokenNotFoundException exception) {
+        log.warn("handleRefreshTokenNotFoundException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
         ErrorResponse errorResponse = new ErrorResponse(ErrorCode.NOT_NULL.getMessage(), ErrorCode.NOT_NULL.getStatus());
-        return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
+
 
 }
 
