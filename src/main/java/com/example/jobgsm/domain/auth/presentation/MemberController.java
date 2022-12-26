@@ -25,6 +25,7 @@ public class MemberController {
     public void signup(@RequestBody @Validated MemberSignUpRequestDto signUpDto){
          memberService.signUp(signUpDto);
     }
+
     @CrossOrigin
     @PostMapping("/login")
     public MemberSignInResponseDto login(@RequestBody @Validated MemberSignInRequestDto signInDto) {
