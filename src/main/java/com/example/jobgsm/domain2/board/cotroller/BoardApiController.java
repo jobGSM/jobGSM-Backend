@@ -1,22 +1,20 @@
-package com.example.jobgsm.domain.board.cotroller;
+package com.example.jobgsm.domain2.board.cotroller;
 
-import com.example.jobgsm.domain.board.dto.request.BoardRequestDto;
-import com.example.jobgsm.domain.board.dto.response.BoardResponseDto;
-import com.example.jobgsm.domain.board.service.BoardService;
+import com.example.jobgsm.domain2.board.dto.request.BoardRequestDto;
+import com.example.jobgsm.domain2.board.dto.response.BoardResponseDto;
+import com.example.jobgsm.domain2.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/board")
 @RequiredArgsConstructor
 public class BoardApiController {
-
     private final BoardService boardService;
 
     //게시글 리스트 조회
@@ -39,12 +37,14 @@ public class BoardApiController {
         boardService.update(params);
         return ResponseEntity.ok().build();
     }
-    
-
     //게시글 삭제
     @DeleteMapping
     public ResponseEntity<Void> delete(@RequestBody @Nullable BoardRequestDto boardId){
         boardService.delete(boardId.getBoardId());
         return ResponseEntity.ok().build();
+    }
+    @GetMapping("/boards/content")
+    public BoardResponseDto findById(@RequestBody @Nullable BoardRequestDto boardId) {
+        return boardService.findById(boardId.getBoardId());
     }
 }

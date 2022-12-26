@@ -1,7 +1,7 @@
-package com.example.jobgsm.domain.board.dto.request;
+package com.example.jobgsm.domain2.board.dto.request;
 
 
-import com.example.jobgsm.domain.board.entity.Board;
+import com.example.jobgsm.domain2.board.entity.Board;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,18 +10,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardRequestDto {
     private Long boardId;
-    private String boardTitle;//제목
-    private String boardContent;//내용
-    private String boardWriter;//작성자
-    private String boardDate;//모집 기한
-    private int boardApplicant;//모집 인원
+    private String boardTitle;
+    private String boardContent;
+    private String boardWriter;
+    private String boardStartDate;
+    private String boardEndDate;
+    private int boardApplicant;
 
     public Board toEntity(){
         return Board.builder()
                 .boardTitle(boardTitle)
                 .boardContent(boardContent)
                 .boardWriter(boardWriter)
-                .boardDate(boardDate)
+                .boardStartDate(boardStartDate)
+                .boardEndDate(boardEndDate)
                 .boardApplicant(boardApplicant)
                 .build();
     }

@@ -1,11 +1,11 @@
-package com.example.jobgsm.domain.board.service;
+package com.example.jobgsm.domain2.board.service;
 
-import com.example.jobgsm.domain.board.dto.request.BoardRequestDto;
-import com.example.jobgsm.domain.board.dto.response.BoardResponseDto;
-import com.example.jobgsm.domain.board.entity.Board;
-import com.example.jobgsm.domain.board.entity.repository.BoardRepository;
-import com.example.jobgsm.global.exception.CustomException;
-import com.example.jobgsm.global.exception.ErrorCode;
+import com.example.jobgsm.domain2.board.dto.request.BoardRequestDto;
+import com.example.jobgsm.domain2.board.dto.response.BoardResponseDto;
+import com.example.jobgsm.domain2.board.entity.Board;
+import com.example.jobgsm.domain2.board.entity.repository.BoardRepository;
+import com.example.jobgsm.global2.exception.CustomException;
+import com.example.jobgsm.global2.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,9 +20,8 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Long save(BoardRequestDto params){
-        Board entity = boardRepository.save(params.toEntity());
-        return entity.getBoardId();
+    public void save(BoardRequestDto params){
+        boardRepository.save(params.toEntity());
     }
     public List<BoardResponseDto> findAll(){
         Sort sort = Sort.by(Sort.Direction.DESC,"boardId","createdDate");
@@ -31,10 +30,9 @@ public class BoardService {
     }
 
     @Transactional
-    public Long update(BoardRequestDto params) {
+    public void update(BoardRequestDto params) {
         Board entity = boardRepository.findById(params.getBoardId()).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
-        entity.update(params.getBoardTitle(), params.getBoardContent(), params.getBoardWriter(),params.getBoardApplicant(),params.getBoardDate());
-        return params.getBoardId();
+        entity.update(params.getBoardTitle(), params.getBoardContent(), params.getBoardWriter(),params.getBoardApplicant(),params.getBoardStartDate(), params.getBoardEndDate() );
     }
 
     //게시글 삭제
@@ -44,6 +42,12 @@ public class BoardService {
         Board entity = boardRepository.findById(boardId).orElseThrow(()-> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
         // 2. 게시글 삭제
         boardRepository.delete(entity);
+    }
+
+    @Transactional
+    public BoardResponseDto findById(final Long id) {
+        Board entity = boardRepository.findById(id).orElseThrow(() -> new CustomException(ErrorCode.POSTS_NOT_FOUND));
+        return new BoardResponseDto(entity);
     }
 
 }

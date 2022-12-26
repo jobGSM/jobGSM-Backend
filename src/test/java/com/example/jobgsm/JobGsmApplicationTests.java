@@ -1,7 +1,7 @@
 package com.example.jobgsm;
 
-import com.example.jobgsm.domain.board.entity.repository.BoardRepository;
-import com.example.jobgsm.domain.board.entity.Board;
+import com.example.jobgsm.domain2.board.entity.repository.BoardRepository;
+import com.example.jobgsm.domain2.board.entity.Board;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +25,8 @@ public class JobGsmApplicationTests {
                 .boardContent("1번 게시글 내용")
                 .boardWriter("도뎡이")
                 .boardApplicant(10)
-                .boardDate("2006-02-16")
+                .boardStartDate("2006-02-16")
+                .boardEndDate("2200-05-06")
                 .build();
 
         // 2. 게시글 저장
@@ -37,7 +38,7 @@ public class JobGsmApplicationTests {
         assertThat(entity.getBoardContent()).isEqualTo("1번 게시글 내용");
         assertThat(entity.getBoardWriter()).isEqualTo("도뎡이");
         assertThat(entity.getBoardApplicant()).isEqualTo(10);
-        assertThat(entity.getBoardDate()).isEqualTo("2006-02-16");
+        //assertThat(entity.getBoardDate()).isEqualTo("2006-02-16");
     }
 
     @Test
