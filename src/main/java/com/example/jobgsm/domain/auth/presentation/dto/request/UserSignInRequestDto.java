@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberSignInRequestDto {
+public class UserSignInRequestDto {
 
 
     @NotBlank

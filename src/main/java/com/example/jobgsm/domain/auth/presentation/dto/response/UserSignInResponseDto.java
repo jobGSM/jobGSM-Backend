@@ -15,8 +15,9 @@ import java.time.ZonedDateTime;
 public class UserSignInResponseDto {
     private String accessToken;
     private String refreshToken;
-    private Long userId;
+    //private Long userId;
     private String name;
+    private String grade;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private ZonedDateTime expiredAt;
 }

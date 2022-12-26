@@ -1,8 +1,8 @@
 package com.example.jobgsm.domain.auth.presentation;
 
 
-import com.example.jobgsm.domain.auth.presentation.dto.request.MemberSignInRequestDto;
-import com.example.jobgsm.domain.auth.presentation.dto.request.MemberSignUpRequestDto;
+import com.example.jobgsm.domain.auth.presentation.dto.request.UserSignInRequestDto;
+import com.example.jobgsm.domain.auth.presentation.dto.request.UserSignUpRequestDto;
 import com.example.jobgsm.domain.auth.presentation.dto.response.UserSignInResponseDto;
 import com.example.jobgsm.domain.auth.service.impl.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -22,14 +22,15 @@ public class MemberController {
 
     @CrossOrigin
     @PostMapping("/signup")
-    public void signup(@RequestBody @Validated MemberSignUpRequestDto signUpDto){
+    public void signup(@RequestBody @Validated UserSignUpRequestDto signUpDto){
          memberService.signUp(signUpDto);
     }
 
     @CrossOrigin
     @PostMapping("/login")
-    public UserSignInResponseDto login(@RequestBody @Validated MemberSignInRequestDto signInDto) {
+    public UserSignInResponseDto login(@RequestBody @Validated UserSignInRequestDto signInDto) {
         return memberService.login(signInDto);
+
     }
     @CrossOrigin
     @DeleteMapping("/logout")

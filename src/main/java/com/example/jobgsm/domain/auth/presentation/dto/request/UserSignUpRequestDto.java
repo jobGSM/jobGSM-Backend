@@ -12,7 +12,7 @@ import javax.validation.constraints.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberSignUpRequestDto {
+public class UserSignUpRequestDto {
     @NotBlank
     private String email;
 

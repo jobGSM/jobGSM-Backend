@@ -3,8 +3,8 @@ package com.example.jobgsm.domain.auth.service.impl;
 import com.example.jobgsm.domain.auth.entity.BlackList;
 import com.example.jobgsm.domain.auth.entity.RefreshToken;
 import com.example.jobgsm.domain.auth.exception.*;
-import com.example.jobgsm.domain.auth.presentation.dto.request.MemberSignInRequestDto;
-import com.example.jobgsm.domain.auth.presentation.dto.request.MemberSignUpRequestDto;
+import com.example.jobgsm.domain.auth.presentation.dto.request.UserSignInRequestDto;
+import com.example.jobgsm.domain.auth.presentation.dto.request.UserSignUpRequestDto;
 import com.example.jobgsm.domain.auth.presentation.dto.response.UserSignInResponseDto;
 import com.example.jobgsm.domain.auth.repository.BlackListRepository;
 import com.example.jobgsm.domain.auth.repository.RefreshTokenRepository;
@@ -46,7 +46,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public void signUp(MemberSignUpRequestDto signUpDto) {
+    public void signUp(UserSignUpRequestDto signUpDto) {
 
         if(userRepository.existsByEmail(signUpDto.getEmail())) {
             throw new EmailAlreadyExistException("이메일이 이미 DB에 존재 합니다.");
@@ -59,6 +59,8 @@ public class MemberServiceImpl implements MemberService {
         User user = User.builder()
                 .email(signUpDto.getEmail())
                 .password(passwordEncoder.encode(signUpDto.getPassword()))
+                .name(signUpDto.getName())
+                .grade(signUpDto.getGrade())
                 .build();
         userRepository.save(user);
 
@@ -66,7 +68,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Transactional
     @Override
-    public UserSignInResponseDto login(MemberSignInRequestDto signInDto) {
+    public UserSignInResponseDto login(UserSignInRequestDto signInDto) {
         User user = userRepository.findUserByEmail(signInDto.getEmail()).orElseThrow(() -> new UserNotFoundException("유저를 찾지 못했습니다."));
         if(!passwordEncoder.matches(signInDto.getPassword(), user.getPassword())) {
             throw new MisMatchPasswordException("비밀번호가 올바르지 않습니다.");
@@ -78,6 +80,8 @@ public class MemberServiceImpl implements MemberService {
         return UserSignInResponseDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
+                .grade(user.getGrade())
+                .name(user.getName())
                 .expiredAt(tokenProvider.getExpiredAtToken(accessToken, jwtProperties.getAccessSecret()))
                 .build();
     }
