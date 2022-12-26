@@ -11,6 +11,7 @@ public interface MemberService {
     UserSignInResponseDto login(UserSignInRequestDto requestDto);
 
     void execute(String accessToken);
+    UserSignInResponseDto tokenReissuance(String reqToken);
 
 
 

@@ -14,6 +14,7 @@ import com.example.jobgsm.domain.user.entity.User;
 import com.example.jobgsm.domain.user.exception.UserNotFoundException;
 import com.example.jobgsm.domain.user.repository.UserRepository;
 import com.example.jobgsm.domain.auth.service.MemberService;
+import com.example.jobgsm.global.exception.exceptionCollection.TokenNotVaildException;
 import com.example.jobgsm.global.security.jwt.TokenProvider;
 import com.example.jobgsm.global.security.jwt.properties.JwtProperties;
 import com.example.jobgsm.global.util.UserUtil;
@@ -111,6 +112,25 @@ public class MemberServiceImpl implements MemberService {
                 .build();
         blackListRepository.save(blackList);
 
+    }
+    @Transactional(rollbackFor = Exception.class)
+    public UserSignInResponseDto tokenReissuance(String reqToken) {
+        String email = tokenProvider.getUserEmail(reqToken, jwtProperties.getRefreshSecret());
+        RefreshToken token = refreshTokenRepository.findById(email)
+                .orElseThrow(() -> new RefreshTokenNotFoundException("리프레쉬 토큰이 존재하지 없습니다."));
+        if(!token.getToken().equals(reqToken)) {
+            throw new TokenNotVaildException("토큰이 유효하지 않습니다");
+        }
+        String accessToken = tokenProvider.generatedAccessToken(email);
+        String refreshToken = tokenProvider.generatedRefreshToken(email);
+        ZonedDateTime expiredAt = tokenProvider.getExpiredAtToken(accessToken, jwtProperties.getAccessSecret());
+        token.exchangeRefreshToken(refreshToken);
+        refreshTokenRepository.save(token);
+        return UserSignInResponseDto.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .expiredAt(expiredAt)
+                .build();
     }
 
 }

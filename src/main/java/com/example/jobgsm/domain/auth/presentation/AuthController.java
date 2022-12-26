@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class MemberController {
+public class AuthController {
     private final MemberServiceImpl memberService;
 
 
@@ -32,8 +32,7 @@ public class MemberController {
         return memberService.login(signInDto);
 
     }
-    @CrossOrigin
-    @DeleteMapping("/logout")
+    @DeleteMapping
     public ResponseEntity<Void> logout(@RequestHeader("Authorization")String accessToken){
         memberService.execute(accessToken);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

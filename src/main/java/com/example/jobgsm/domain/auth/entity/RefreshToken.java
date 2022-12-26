@@ -9,6 +9,9 @@ import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
 
+import javax.persistence.Column;
+import javax.persistence.Table;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,7 +20,6 @@ import org.springframework.data.redis.core.index.Indexed;
 public class RefreshToken {
     @Id
     private String email;
-
     @Indexed
     private String token;
 
@@ -27,4 +29,5 @@ public class RefreshToken {
     public void exchangeRefreshToken(String token) {
         this.token = token;
     }
+
 }
