@@ -1,5 +1,6 @@
 package com.example.jobgsm.domain.auth.presentation.dto.response;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MemberSignInResponseDto {
-    private String accessToken;
-    private String refreshToken;
-    private Long userId;
+public class UserSignUpResponseDto {
+    private String email;
+    private String password;
     private String name;
+    private String grade;
 }

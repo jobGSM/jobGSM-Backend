@@ -2,18 +2,20 @@ package com.example.jobgsm.domain.auth.service.impl;
 
 import com.example.jobgsm.domain.auth.entity.BlackList;
 import com.example.jobgsm.domain.auth.entity.RefreshToken;
-import com.example.jobgsm.domain.auth.exception.BlackListAlreadyExistException;
-import com.example.jobgsm.domain.auth.exception.RefreshTokenNotFoundException;
-import com.example.jobgsm.domain.auth.presentation.dto.request.MemberSignInRequestDto;
-import com.example.jobgsm.domain.auth.presentation.dto.request.MemberSignUpRequestDto;
-import com.example.jobgsm.domain.auth.presentation.dto.response.MemberSignInResponseDto;
-import com.example.jobgsm.domain.auth.exception.MemberNotFoundException;
-import com.example.jobgsm.domain.auth.exception.PasswordNotMatch;
+import com.example.jobgsm.domain.auth.exception.*;
+import com.example.jobgsm.domain.auth.presentation.dto.request.UserSignInRequestDto;
+import com.example.jobgsm.domain.auth.presentation.dto.request.UserSignUpRequestDto;
+import com.example.jobgsm.domain.auth.presentation.dto.response.UserSignInResponseDto;
 import com.example.jobgsm.domain.auth.repository.BlackListRepository;
 import com.example.jobgsm.domain.auth.repository.RefreshTokenRepository;
+import com.example.jobgsm.domain.email.entity.EmailAuth;
+import com.example.jobgsm.domain.email.repository.EmailAuthRepository;
 import com.example.jobgsm.domain.user.entity.User;
+import com.example.jobgsm.domain.user.exception.PasswordWrongException;
+import com.example.jobgsm.domain.user.exception.UserNotFoundException;
 import com.example.jobgsm.domain.user.repository.UserRepository;
 import com.example.jobgsm.domain.auth.service.MemberService;
+import com.example.jobgsm.global.exception.exceptionCollection.TokenNotVaildException;
 import com.example.jobgsm.global.security.jwt.TokenProvider;
 import com.example.jobgsm.global.security.jwt.properties.JwtProperties;
 import com.example.jobgsm.global.util.UserUtil;
@@ -27,9 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.ZonedDateTime;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Slf4j
 public class MemberServiceImpl implements MemberService {
 
     private final RefreshTokenRepository refreshTokenRepository;
@@ -40,53 +41,59 @@ public class MemberServiceImpl implements MemberService {
     private final UserRepository userRepository;
     private final UserUtil userUtil;
     private final RedisTemplate redisTemplate;
+    private final EmailAuthRepository emailAuthRepository;
 
 
 
     @Transactional
     @Override
-    public void signUp(MemberSignUpRequestDto signUpDto) {
+    public void signUp(UserSignUpRequestDto signUpDto) {
 
-        User user = userRepository.save(signUpDto.toEntity());
-        user.addUserAuthority();
-        user.passwordEncode(passwordEncoder);
+        if(userRepository.existsByEmail(signUpDto.getEmail())) {
+            throw new EmailAlreadyExistException("이메일이 이미 DB에 존재 합니다.");
+        }
+        EmailAuth emailAuth = emailAuthRepository.findById(signUpDto.getEmail())
+                .orElseThrow(() -> new NotVerifyEmailException("이메일이 인증되지 않았습니다."));
+        if(!emailAuth.getAuthentication()) {
+            throw new NotVerifyEmailException("이메일이 인증되지 않았습니다");
+        }
+        User user = User.builder()
+                .email(signUpDto.getEmail())
+                .password(passwordEncoder.encode(signUpDto.getPassword()))
+                .name(signUpDto.getName())
+                .grade(signUpDto.getGrade())
+                .build();
+        userRepository.save(user);
 
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public MemberSignInResponseDto login(MemberSignInRequestDto signInDto) {
-        User member = userRepository.findUserByEmail(signInDto.getEmail())
-                .orElseThrow(() -> new MemberNotFoundException("존재하지 않은 회원 입니다"));
-
-        validateMatchedPassword(signInDto.getPassword(), member.getPassword());
-
-        String accessToken = tokenProvider.generatedAccessToken(member.getEmail());
-        String refreshToken = tokenProvider.generatedRefreshToken(member.getEmail())
-;       Long userId = member.getMemberId();
-        String name = member.getName();
-
-        member.updateRefreshToken(refreshToken);
-        userRepository.save(member);
-
-        return MemberSignInResponseDto.builder()
+    public UserSignInResponseDto login(UserSignInRequestDto signInDto) {
+        User user = userRepository.findUserByEmail(signInDto.getEmail()).orElseThrow(() -> new UserNotFoundException("유저를 찾지 못했습니다."));
+        if(!passwordEncoder.matches(signInDto.getPassword(), user.getPassword())) {
+            throw new PasswordWrongException("비밀번호가 올바르지 않습니다.");
+        }
+        String accessToken = tokenProvider.generatedAccessToken(signInDto.getEmail());
+        String refreshToken = tokenProvider.generatedRefreshToken(signInDto.getEmail());
+        RefreshToken entityToRedis = new RefreshToken(signInDto.getEmail(), refreshToken);
+        System.out.println("entityToRedis = " + entityToRedis);
+        refreshTokenRepository.save(entityToRedis);
+        System.out.println(refreshTokenRepository.findAll());
+        return UserSignInResponseDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .userId(userId)
-                .name(name)
+                .grade(user.getGrade())
+                .name(user.getName())
                 .build();
     }
 
-    private void validateMatchedPassword(String validPassword, String memberPassword) {
-        if (!passwordEncoder.matches(validPassword, memberPassword)) {
-            throw new PasswordNotMatch("비밀번호가 일치하지 않습니다");
-        }
-    }
 
     @Transactional(rollbackFor = Exception.class)
     public void execute(String accessToken){
         User user = userUtil.currentUser();
-        RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByEmail(user.getEmail()).orElseThrow(()->new RefreshTokenNotFoundException("리프레시 토큰을 찾을 수 없습니다."));
+        System.out.println(user.getEmail());
+        RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByEmail(user.getEmail()).orElseThrow(()->new RefreshTokenNotFoundException("refreshToken 을 찾을 수 없습니다."));
         refreshTokenRepository.delete(refreshToken);
         saveBlackList(user.getEmail(),accessToken);
     }
@@ -102,6 +109,24 @@ public class MemberServiceImpl implements MemberService {
                 .build();
         blackListRepository.save(blackList);
 
+    }
+    @Transactional(rollbackFor = Exception.class)
+    public UserSignInResponseDto tokenReissuance(String reqToken) {
+        String email = tokenProvider.getUserEmail(reqToken, jwtProperties.getRefreshSecret());
+        RefreshToken token = refreshTokenRepository.findById(email)
+                .orElseThrow(() -> new RefreshTokenNotFoundException("존재하지 않은 refreshToken 입니다"));
+        if(!token.getRefreshToken().equals(reqToken)) {
+            throw new TokenNotVaildException("토큰이 유효하지 않습니다");
+        }
+        String accessToken = tokenProvider.generatedAccessToken(email);
+        String refreshToken = tokenProvider.generatedRefreshToken(email);
+        ZonedDateTime expiredAt = tokenProvider.getExpiredAtToken(accessToken, jwtProperties.getAccessSecret());
+        token.exchangeRefreshToken(refreshToken);
+        refreshTokenRepository.save(token);
+        return UserSignInResponseDto.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
 }

@@ -9,6 +9,6 @@ public class PasswordWrongException extends RuntimeException{
 
     public PasswordWrongException(String message) {
         super(message);
-        this.errorCode = ErrorCode.PASSWORD_WRONG;
+        this.errorCode = ErrorCode.NOTMATCH_MEMBER_PASSWORD;
     }
 }
