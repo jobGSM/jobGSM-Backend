@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 // develop
 // 김경수
 // 최장우 최장우 최장우 테스트
+// 최장우 테스트
 @EnableJpaAuditing
 @SpringBootApplication
 @EnableCaching
