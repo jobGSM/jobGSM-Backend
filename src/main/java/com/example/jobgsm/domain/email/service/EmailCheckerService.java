@@ -17,11 +17,12 @@ public class EmailCheckerService {
     private final EmailAuthRepository emailAuthRepository;
 
     @Transactional(rollbackFor = Exception.class)
-    public void execute(String email,String authKey){
+    public void execute(String email, String authKey){
         EmailAuth emailAuthEntity = emailAuthRepository.findById(email).orElseThrow(()->new UserNotFoundException("유저를 찾을 수 없습니다."));
         checkAuthKey(emailAuthEntity,authKey);
         emailAuthEntity.updateAuthentication(true);
         emailAuthRepository.save(emailAuthEntity);
+        System.out.println("인증완료");
     }
 
     private void checkAuthKey(EmailAuth emailAuthEntity, String authKey){

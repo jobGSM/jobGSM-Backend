@@ -45,7 +45,7 @@ public class EmailSenderService {
                         .attemptCount(0)
                         .email(email)
                         .build());
-        if (emailAuthEntity.getAttemptCount() >= 5) {
+        if (emailAuthEntity.getAttemptCount() >= 100) {
             throw new ManyRequestEmailAuthException("발송 횟수 초과");
         }
         emailAuthEntity.updateRandomValue(authKey);
@@ -63,6 +63,8 @@ public class EmailSenderService {
         } catch (MessagingException e) {
             throw new AuthCodeExpiredException("메일 발송에 실패했습니다");
         }
+
+        System.out.println("인증 이메일 발송");
     }
 
 }

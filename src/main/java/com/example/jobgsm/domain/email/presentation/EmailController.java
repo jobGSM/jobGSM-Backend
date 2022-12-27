@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
 
 
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/email")
 public class EmailController {
@@ -23,12 +24,14 @@ public class EmailController {
     @PostMapping
     public ResponseEntity<Void> authEmail(@RequestBody @Valid EmailSentDto emailSentDto) {
         emailSenderService.execute(emailSentDto);
+        System.out.println("authmail");
         return ResponseEntity.ok().build();
     }
 
     @RequestMapping(method = RequestMethod.HEAD)
-    public ResponseEntity<Void> mailVerify(@Email @RequestParam String email, @RequestParam String authKey){
-        emailCheckerService.execute(email,authKey);
-        return ResponseEntity.ok().build();
+        public ResponseEntity<Void> mailVerify(@Email @RequestParam String email, @RequestParam String authKey){
+            System.out.println("mailverify");
+            emailCheckerService.execute(email,authKey);
+            return ResponseEntity.ok().build();
     }
 }

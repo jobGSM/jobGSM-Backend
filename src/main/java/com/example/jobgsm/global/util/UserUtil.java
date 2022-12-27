@@ -15,6 +15,7 @@ public class UserUtil {
 
     public User currentUser(){
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(email);
         return userRepository. findUserByEmail(email).orElseThrow(()->new UserNotFoundException("유저를 찾을 수 없습니다."));
     }
 }

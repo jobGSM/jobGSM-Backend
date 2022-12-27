@@ -19,6 +19,4 @@ public class BlackList {
     @Id
     private String accessToken;
     private String email;
-    @TimeToLive
-    private ZonedDateTime timeToLive;
 }

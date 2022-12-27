@@ -71,7 +71,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public UserSignInResponseDto login(UserSignInRequestDto signInDto) {
         User user = userRepository.findUserByEmail(signInDto.getEmail()).orElseThrow(() -> new UserNotFoundException("유저를 찾지 못했습니다."));
-        if(!passwordEncoder.matches(signInDto.getPassword(), user.getPassword())) {
+               if(!passwordEncoder.matches(signInDto.getPassword(), user.getPassword())) {
             throw new PasswordWrongException("비밀번호가 올바르지 않습니다.");
         }
         String accessToken = tokenProvider.generatedAccessToken(signInDto.getEmail());
@@ -93,9 +93,11 @@ public class MemberServiceImpl implements MemberService {
     public void execute(String accessToken){
         User user = userUtil.currentUser();
         System.out.println(user.getEmail());
-        RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByEmail(user.getEmail()).orElseThrow(()->new RefreshTokenNotFoundException("refreshToken 을 찾을 수 없습니다."));
+        System.out.println(refreshTokenRepository.findAll());
+        RefreshToken refreshToken = refreshTokenRepository.findById(user.getEmail()).orElseThrow(()->new RefreshTokenNotFoundException("refreshToken 을 찾을 수 없습니다."));
         refreshTokenRepository.delete(refreshToken);
         saveBlackList(user.getEmail(),accessToken);
+        System.out.println(blackListRepository.findAll());
     }
     private void saveBlackList(String email, String accessToken){
         if(redisTemplate.opsForValue().get(accessToken)!=null){
@@ -105,7 +107,6 @@ public class MemberServiceImpl implements MemberService {
         BlackList blackList = BlackList.builder()
                 .email(email)
                 .accessToken(accessToken)
-                .timeToLive(accessTokenExpire)
                 .build();
         blackListRepository.save(blackList);
 
