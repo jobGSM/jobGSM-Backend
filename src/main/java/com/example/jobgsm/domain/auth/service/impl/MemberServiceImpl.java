@@ -11,6 +11,7 @@ import com.example.jobgsm.domain.auth.repository.RefreshTokenRepository;
 import com.example.jobgsm.domain.email.entity.EmailAuth;
 import com.example.jobgsm.domain.email.repository.EmailAuthRepository;
 import com.example.jobgsm.domain.user.entity.User;
+import com.example.jobgsm.domain.user.exception.PasswordWrongException;
 import com.example.jobgsm.domain.user.exception.UserNotFoundException;
 import com.example.jobgsm.domain.user.repository.UserRepository;
 import com.example.jobgsm.domain.auth.service.MemberService;
@@ -28,9 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.ZonedDateTime;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Slf4j
 public class MemberServiceImpl implements MemberService {
 
     private final RefreshTokenRepository refreshTokenRepository;
@@ -67,36 +67,33 @@ public class MemberServiceImpl implements MemberService {
 
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public UserSignInResponseDto login(UserSignInRequestDto signInDto) {
         User user = userRepository.findUserByEmail(signInDto.getEmail()).orElseThrow(() -> new UserNotFoundException("유저를 찾지 못했습니다."));
         if(!passwordEncoder.matches(signInDto.getPassword(), user.getPassword())) {
-            throw new MisMatchPasswordException("비밀번호가 올바르지 않습니다.");
+            throw new PasswordWrongException("비밀번호가 올바르지 않습니다.");
         }
         String accessToken = tokenProvider.generatedAccessToken(signInDto.getEmail());
         String refreshToken = tokenProvider.generatedRefreshToken(signInDto.getEmail());
-        RefreshToken entityToRedis = new RefreshToken(signInDto.getEmail(), refreshToken, tokenProvider.getREFRESH_TOKEN_EXPIRE_TIME());
+        RefreshToken entityToRedis = new RefreshToken(signInDto.getEmail(), refreshToken);
+        System.out.println("entityToRedis = " + entityToRedis);
         refreshTokenRepository.save(entityToRedis);
+        System.out.println(refreshTokenRepository.findAll());
         return UserSignInResponseDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .grade(user.getGrade())
                 .name(user.getName())
-                .expiredAt(tokenProvider.getExpiredAtToken(accessToken, jwtProperties.getAccessSecret()))
                 .build();
     }
 
-    private void validateMatchedPassword(String validPassword, String memberPassword) {
-        if (!passwordEncoder.matches(validPassword, memberPassword)) {
-            throw new MisMatchPasswordException("비밀번호가 일치하지 않습니다");
-        }
-    }
 
     @Transactional(rollbackFor = Exception.class)
     public void execute(String accessToken){
         User user = userUtil.currentUser();
-        RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByEmail(user.getEmail()).orElseThrow(()->new RefreshTokenNotFoundException("리프레시 토큰을 찾을 수 없습니다."));
+        System.out.println(user.getEmail());
+        RefreshToken refreshToken = refreshTokenRepository.findRefreshTokenByEmail(user.getEmail()).orElseThrow(()->new RefreshTokenNotFoundException("refreshToken 을 찾을 수 없습니다."));
         refreshTokenRepository.delete(refreshToken);
         saveBlackList(user.getEmail(),accessToken);
     }
@@ -117,8 +114,8 @@ public class MemberServiceImpl implements MemberService {
     public UserSignInResponseDto tokenReissuance(String reqToken) {
         String email = tokenProvider.getUserEmail(reqToken, jwtProperties.getRefreshSecret());
         RefreshToken token = refreshTokenRepository.findById(email)
-                .orElseThrow(() -> new RefreshTokenNotFoundException("리프레쉬 토큰이 존재하지 없습니다."));
-        if(!token.getToken().equals(reqToken)) {
+                .orElseThrow(() -> new RefreshTokenNotFoundException("존재하지 않은 refreshToken 입니다"));
+        if(!token.getRefreshToken().equals(reqToken)) {
             throw new TokenNotVaildException("토큰이 유효하지 않습니다");
         }
         String accessToken = tokenProvider.generatedAccessToken(email);
@@ -129,7 +126,6 @@ public class MemberServiceImpl implements MemberService {
         return UserSignInResponseDto.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .expiredAt(expiredAt)
                 .build();
     }
 

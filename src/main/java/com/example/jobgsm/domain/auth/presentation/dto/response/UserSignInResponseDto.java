@@ -18,6 +18,4 @@ public class UserSignInResponseDto {
     //private Long userId;
     private String name;
     private String grade;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private ZonedDateTime expiredAt;
 }
