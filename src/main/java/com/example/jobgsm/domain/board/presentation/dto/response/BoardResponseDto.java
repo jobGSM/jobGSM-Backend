@@ -1,6 +1,6 @@
-package com.example.jobgsm.domain2.board.dto.response;
+package com.example.jobgsm.domain.board.presentation.dto.response;
 
-import com.example.jobgsm.domain2.board.entity.Board;
+import com.example.jobgsm.domain.board.entity.Board;
 import lombok.Getter;
 
 import java.time.LocalDateTime;

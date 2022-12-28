@@ -1,7 +1,7 @@
-package com.example.jobgsm.domain2.board.dto.request;
+package com.example.jobgsm.domain.board.presentation.dto.request;
 
 
-import com.example.jobgsm.domain2.board.entity.Board;
+import com.example.jobgsm.domain.board.entity.Board;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

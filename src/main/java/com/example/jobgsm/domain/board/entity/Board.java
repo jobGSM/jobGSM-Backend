@@ -1,4 +1,4 @@
-package com.example.jobgsm.domain2.board.entity;
+package com.example.jobgsm.domain.board.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;

@@ -1,11 +1,10 @@
-package com.example.jobgsm.domain2.board.service;
+package com.example.jobgsm.domain.board.service;
 
-import com.example.jobgsm.domain2.board.dto.request.BoardRequestDto;
-import com.example.jobgsm.domain2.board.dto.response.BoardResponseDto;
-import com.example.jobgsm.domain2.board.entity.Board;
-import com.example.jobgsm.domain2.board.entity.repository.BoardRepository;
+import com.example.jobgsm.domain.board.presentation.dto.request.BoardRequestDto;
+import com.example.jobgsm.domain.board.entity.Board;
+import com.example.jobgsm.domain.board.repository.BoardRepository;
+import com.example.jobgsm.domain.board.presentation.dto.response.BoardResponseDto;
 import com.example.jobgsm.global2.exception.CustomException;
-import com.example.jobgsm.global2.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;

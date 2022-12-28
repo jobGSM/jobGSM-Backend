@@ -1,8 +1,8 @@
-package com.example.jobgsm.domain2.board.cotroller;
+package com.example.jobgsm.domain.board.presentation;
 
-import com.example.jobgsm.domain2.board.dto.request.BoardRequestDto;
-import com.example.jobgsm.domain2.board.dto.response.BoardResponseDto;
-import com.example.jobgsm.domain2.board.service.BoardService;
+import com.example.jobgsm.domain.board.presentation.dto.request.BoardRequestDto;
+import com.example.jobgsm.domain.board.presentation.dto.response.BoardResponseDto;
+import com.example.jobgsm.domain.board.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;

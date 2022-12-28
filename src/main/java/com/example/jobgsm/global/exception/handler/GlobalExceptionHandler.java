@@ -8,9 +8,11 @@ import com.example.jobgsm.domain.user.exception.PasswordWrongException;
 import com.example.jobgsm.domain.user.exception.UserNotFoundException;
 import com.example.jobgsm.global.exception.ErrorCode;
 import com.example.jobgsm.global.exception.ErrorResponse;
+import com.example.jobgsm.global2.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -99,6 +101,32 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorResponse> handleCustomException(HttpServletRequest request , RefreshTokenNotFoundException exception) {
+        log.warn("handleCustomException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    /*
+     * HTTP 405 Exception
+     */
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupportedException(HttpServletRequest request , RefreshTokenNotFoundException exception) {
+        log.warn("HttpRequestMethodNotSupportedException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+    /*
+     * HTTP 500 Exception
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleException(HttpServletRequest request , RefreshTokenNotFoundException exception) {
+        log.warn("Exception 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
 
 
 }
