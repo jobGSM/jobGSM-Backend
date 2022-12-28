@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
@@ -18,9 +19,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<MyPageResponse> myPage(@RequestBody @Valid IdRequest idRequest) {
-        MyPageResponse myPageResponse = userService.myPage(idRequest.getUserId());
-        return ResponseEntity.ok().body(myPageResponse);
+    public ResponseEntity<MyPageResponse> myPage() {
+        return ResponseEntity.ok().body(userService.myPage());
     }
 
     @DeleteMapping

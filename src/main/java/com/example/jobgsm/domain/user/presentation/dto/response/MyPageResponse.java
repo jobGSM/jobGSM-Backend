@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MyPageResponse {
 
-    private Long userId;
     private String email;
     private String password;
     private String name;

@@ -38,6 +38,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             String email = tokenProvider.getUserEmail(accessToken, jwtProperties.getAccessSecret());
             registerSecurityContext(request, email);
         }
+
         filterChain.doFilter(request, response);
     }
 
