@@ -1,5 +1,6 @@
 package com.example.jobgsm.domain.email.presentation;
 
+import com.example.jobgsm.domain.email.presentation.dto.response.VerifyCheck;
 import com.example.jobgsm.domain.email.service.EmailCheckerService;
 import com.example.jobgsm.domain.email.service.EmailSenderService;
 import com.example.jobgsm.domain.email.presentation.dto.request.EmailSentDto;
@@ -28,10 +29,10 @@ public class EmailController {
         return ResponseEntity.ok().build();
     }
 
-    @RequestMapping(method = RequestMethod.HEAD)
-        public ResponseEntity<Void> mailVerify(@Email @RequestParam String email, @RequestParam String authKey){
+    @PostMapping("/check")
+        public ResponseEntity<VerifyCheck> mailVerify(@Email @RequestParam String email, @RequestParam String authKey){
             System.out.println("mailverify");
-            emailCheckerService.execute(email,authKey);
-            return ResponseEntity.ok().build();
+
+            return ResponseEntity.ok().body(emailCheckerService.execute(email,authKey));
     }
 }
