@@ -38,7 +38,6 @@ public class User implements UserDetails {
     @Column(name = "grade")
     private String grade;
 
-
     @Transient
     @Enumerated(EnumType.STRING)
     private Role role;

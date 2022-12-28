@@ -1,6 +1,7 @@
 package com.example.jobgsm.global.exception.handler;
 
 import com.example.jobgsm.domain.auth.exception.*;
+import com.example.jobgsm.domain.board.exception.BoardNotFoundException;
 import com.example.jobgsm.domain.email.exception.AuthCodeExpiredException;
 import com.example.jobgsm.domain.email.exception.AuthCodeMismatchException;
 import com.example.jobgsm.domain.email.exception.ManyRequestEmailAuthException;
@@ -8,7 +9,6 @@ import com.example.jobgsm.domain.user.exception.PasswordWrongException;
 import com.example.jobgsm.domain.user.exception.UserNotFoundException;
 import com.example.jobgsm.global.exception.ErrorCode;
 import com.example.jobgsm.global.exception.ErrorResponse;
-import com.example.jobgsm.global2.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +16,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -101,7 +102,7 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
-    @ExceptionHandler(CustomException.class)
+    @ExceptionHandler(BoardNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleCustomException(HttpServletRequest request , RefreshTokenNotFoundException exception) {
         log.warn("handleCustomException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
