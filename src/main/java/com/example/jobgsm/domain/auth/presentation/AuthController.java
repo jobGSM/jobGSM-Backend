@@ -31,7 +31,6 @@ public class AuthController {
     @PostMapping("/login")
     public UserSignInResponseDto login(@RequestBody @Validated UserSignInRequestDto signInDto) {
         return memberService.login(signInDto);
-
     }
     @DeleteMapping
     public ResponseEntity<Void> logout(@RequestHeader("Authorization")String accessToken){
@@ -40,7 +39,7 @@ public class AuthController {
     }
     @PatchMapping
     public ResponseEntity<NewTokenResponse> reIssueToken(@RequestHeader("RefreshToken") String token) {
-        NewTokenResponse reIssueToken = memberService.tokenReissue(token);
+        NewTokenResponse reIssueToken = memberService.tokenReissuance(token);
         return new ResponseEntity<>(reIssueToken, HttpStatus.OK);
     }
 }

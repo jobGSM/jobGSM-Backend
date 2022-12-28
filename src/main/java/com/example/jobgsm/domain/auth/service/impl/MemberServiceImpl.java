@@ -16,7 +16,7 @@ import com.example.jobgsm.domain.user.exception.PasswordWrongException;
 import com.example.jobgsm.domain.user.exception.UserNotFoundException;
 import com.example.jobgsm.domain.user.repository.UserRepository;
 import com.example.jobgsm.domain.auth.service.MemberService;
-import com.example.jobgsm.global.exception.exceptionCollection.TokenNotVaildException;
+import com.example.jobgsm.global.exception.exceptionCollection.TokenNotValidException;
 import com.example.jobgsm.global.security.jwt.TokenProvider;
 import com.example.jobgsm.global.security.jwt.properties.JwtProperties;
 import com.example.jobgsm.global.util.UserUtil;
@@ -118,7 +118,7 @@ public class MemberServiceImpl implements MemberService {
         RefreshToken token = refreshTokenRepository.findById(email)
                 .orElseThrow(() -> new RefreshTokenNotFoundException("존재하지 않은 refreshToken 입니다"));
         if(!token.getRefreshToken().equals(reqToken)) {
-            throw new TokenNotVaildException("토큰이 유효하지 않습니다");
+            throw new TokenNotValidException("토큰이 유효하지 않습니다");
         }
         String accessToken = tokenProvider.generatedAccessToken(email);
         String refreshToken = tokenProvider.generatedRefreshToken(email);

@@ -1,7 +1,7 @@
 package com.example.jobgsm.global.security.jwt;
 
 import com.example.jobgsm.global.exception.exceptionCollection.TokenExpirationException;
-import com.example.jobgsm.global.exception.exceptionCollection.TokenNotVaildException;
+import com.example.jobgsm.global.exception.exceptionCollection.TokenNotValidException;
 import com.example.jobgsm.global.security.auth.AuthDetailsService;
 import com.example.jobgsm.global.security.jwt.properties.JwtProperties;
 import io.jsonwebtoken.*;
@@ -76,7 +76,7 @@ public class TokenProvider {
         } catch (ExpiredJwtException e) {
             throw new TokenExpirationException("토큰이 만료되었습니다");
         } catch (JwtException e) {
-            throw new TokenNotVaildException("토큰이 올바르지 않습니다.");
+            throw new TokenNotValidException("토큰이 올바르지 않습니다.");
         }
 
     }
