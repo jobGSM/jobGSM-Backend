@@ -41,3 +41,4 @@ spring:
 jwt:
   accessSecret: yOeHjKegnwjbli5csZbO1jE9r+qoGkpWgX2JdHjw3tI=
   refreshSecret: gjX7hf+563vQH/SMDh+K+A3MAbICvd3MtPLk/sZwizw=(
+
