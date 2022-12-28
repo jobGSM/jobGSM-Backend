@@ -74,7 +74,7 @@ public class TokenProvider {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
-            throw new TokenExpirationException("The token has expired.");
+            throw new TokenExpirationException("토큰이 만료되었습니다");
         } catch (JwtException e) {
             throw new TokenNotVaildException("토큰이 올바르지 않습니다.");
         }

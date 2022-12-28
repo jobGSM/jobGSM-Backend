@@ -3,6 +3,7 @@ package com.example.jobgsm.domain.auth.presentation;
 
 import com.example.jobgsm.domain.auth.presentation.dto.request.UserSignInRequestDto;
 import com.example.jobgsm.domain.auth.presentation.dto.request.UserSignUpRequestDto;
+import com.example.jobgsm.domain.auth.presentation.dto.response.NewTokenResponse;
 import com.example.jobgsm.domain.auth.presentation.dto.response.UserSignInResponseDto;
 import com.example.jobgsm.domain.auth.service.impl.MemberServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +37,10 @@ public class AuthController {
     public ResponseEntity<Void> logout(@RequestHeader("Authorization")String accessToken){
         memberService.execute(accessToken);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PatchMapping
+    public ResponseEntity<NewTokenResponse> reIssueToken(@RequestHeader("RefreshToken") String token) {
+        NewTokenResponse reIssueToken = memberService.tokenReissue(token);
+        return new ResponseEntity<>(reIssueToken, HttpStatus.OK);
     }
 }
