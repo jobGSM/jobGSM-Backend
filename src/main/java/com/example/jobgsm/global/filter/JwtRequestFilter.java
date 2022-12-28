@@ -1,7 +1,7 @@
 package com.example.jobgsm.global.filter;
 
 import com.example.jobgsm.domain.auth.exception.BlackListAlreadyExistException;
-import com.example.jobgsm.global.exception.exceptionCollection.TokenNotVaildException;
+import com.example.jobgsm.global.exception.exceptionCollection.TokenNotValidException;
 import com.example.jobgsm.global.security.jwt.TokenProvider;
 import com.example.jobgsm.global.security.jwt.properties.JwtProperties;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +32,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             tokenProvider.extractAllClaims(accessToken, jwtProperties.getAccessSecret());
             System.out.printf(tokenProvider.getTokenType(accessToken,jwtProperties.getAccessSecret()));
             if (!tokenProvider.getTokenType(accessToken, jwtProperties.getAccessSecret()).equals("ACCESS_TOKEN"))
-                throw new TokenNotVaildException("Token is not valid");
+                throw new TokenNotValidException("Token is not valid");
             else if(redisTemplate.opsForValue().get(accessToken)!=null)
                 throw new BlackListAlreadyExistException("블랙리스트에 이미 등록되어있습니다.");
             String email = tokenProvider.getUserEmail(accessToken, jwtProperties.getAccessSecret());

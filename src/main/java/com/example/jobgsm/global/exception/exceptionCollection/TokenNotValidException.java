@@ -7,11 +7,11 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class TokenNotVaildException extends RuntimeException {
+public class TokenNotValidException extends RuntimeException {
 
     private final ErrorCode errorCode;
 
-    public TokenNotVaildException(String message) {
+    public TokenNotValidException(String message) {
         super(message);
         this.errorCode = ErrorCode.TOKEN_NOT_VALID;
     }

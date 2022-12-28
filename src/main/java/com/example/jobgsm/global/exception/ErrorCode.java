@@ -2,6 +2,7 @@ package com.example.jobgsm.global.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
@@ -23,7 +24,12 @@ public enum ErrorCode {
 
     MANY_REQUEST_EMAIL_AUTH("15분에 최대 3번의 이메일 요청만 가능합니다." , 429),
     EXPIRE_EMAIL_CODE("이메일 인증번호 시간이 만료되었습니다.", 401),
-    MISMATCH_AUTH_CODE("인증번호가 일치하지 않습니다." , 400);
+    MISMATCH_AUTH_CODE("인증번호가 일치하지 않습니다." , 400),
+    BAD_REQUEST("잘못된 요청 입니다.",400),
+    POSTS_NOT_FOUND("게시글 정보를 찾을 수 없습니다.",404),
+    METHOD_NOT_ALLOWED( "허용되지 않은 메서드입니다.",405),
+    INTERNAL_SERVER_ERROR( "내부 서버 오류입니다.",500),
+    ;
 
     private final String message;
     private final int status;
