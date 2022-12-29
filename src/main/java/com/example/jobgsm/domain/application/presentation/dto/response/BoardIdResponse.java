@@ -1,4 +1,4 @@
-package com.example.jobgsm.domain.application.dto.response;
+package com.example.jobgsm.domain.application.presentation.dto.response;
 
 import com.example.jobgsm.domain.application.entity.Application;
 import lombok.AllArgsConstructor;

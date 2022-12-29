@@ -1,8 +1,8 @@
 package com.example.jobgsm.domain.application.service;
 
-import com.example.jobgsm.domain.application.dto.request.BoardIdRequest;
-import com.example.jobgsm.domain.application.dto.response.ApplicantsResponse;
-import com.example.jobgsm.domain.application.dto.response.BoardIdResponse;
+import com.example.jobgsm.domain.application.presentation.dto.request.BoardIdRequest;
+import com.example.jobgsm.domain.application.presentation.dto.response.ApplicantsResponse;
+import com.example.jobgsm.domain.application.presentation.dto.response.BoardIdResponse;
 import com.example.jobgsm.domain.application.entity.Application;
 import com.example.jobgsm.domain.application.exception.BoardNotFoundException;
 import com.example.jobgsm.domain.application.repository.ApplicationRepository;

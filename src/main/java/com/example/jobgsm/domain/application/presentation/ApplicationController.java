@@ -1,15 +1,14 @@
-package com.example.jobgsm.domain.application.controller;
+package com.example.jobgsm.domain.application.presentation;
 
-import com.example.jobgsm.domain.application.dto.request.BoardIdRequest;
-import com.example.jobgsm.domain.application.dto.response.ApplicantsResponse;
-import com.example.jobgsm.domain.application.dto.response.BoardIdResponse;
+import com.example.jobgsm.domain.application.presentation.dto.request.BoardIdRequest;
+import com.example.jobgsm.domain.application.presentation.dto.response.ApplicantsResponse;
+import com.example.jobgsm.domain.application.presentation.dto.response.BoardIdResponse;
 import com.example.jobgsm.domain.application.service.ApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController

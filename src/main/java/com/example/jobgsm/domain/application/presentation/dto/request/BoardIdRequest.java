@@ -1,4 +1,4 @@
-package com.example.jobgsm.domain.application.dto.request;
+package com.example.jobgsm.domain.application.presentation.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

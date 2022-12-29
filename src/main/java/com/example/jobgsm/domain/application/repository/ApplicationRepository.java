@@ -1,7 +1,7 @@
 package com.example.jobgsm.domain.application.repository;
 
-import com.example.jobgsm.domain.application.dto.response.ApplicantsResponse;
-import com.example.jobgsm.domain.application.dto.response.BoardIdResponse;
+import com.example.jobgsm.domain.application.presentation.dto.response.ApplicantsResponse;
+import com.example.jobgsm.domain.application.presentation.dto.response.BoardIdResponse;
 import com.example.jobgsm.domain.application.entity.Application;
 import org.springframework.data.jpa.repository.JpaRepository;
 
