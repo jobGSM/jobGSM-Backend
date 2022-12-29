@@ -117,6 +117,9 @@ public class MemberServiceImpl implements MemberService {
         String email = tokenProvider.getUserEmail(reqToken, jwtProperties.getRefreshSecret());
         RefreshToken token = refreshTokenRepository.findById(email)
                 .orElseThrow(() -> new RefreshTokenNotFoundException("존재하지 않은 refreshToken 입니다"));
+
+        System.out.println(token.getRefreshToken());
+        System.out.println(reqToken);
         if(!token.getRefreshToken().equals(reqToken)) {
             throw new TokenNotValidException("토큰이 유효하지 않습니다");
         }
