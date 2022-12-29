@@ -9,10 +9,8 @@ import javax.validation.constraints.NotNull;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CancelRequest {
+public class BoardIdRequest {
 
-    @NotNull
-    private Long userId;
     @NotNull
     private Long boardId;
 }

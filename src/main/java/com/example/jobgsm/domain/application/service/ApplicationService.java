@@ -1,12 +1,13 @@
 package com.example.jobgsm.domain.application.service;
 
-import com.example.jobgsm.domain.application.dto.request.ApplyRequest;
-import com.example.jobgsm.domain.application.dto.request.CancelRequest;
+import com.example.jobgsm.domain.application.dto.request.BoardIdRequest;
 import com.example.jobgsm.domain.application.dto.response.ApplicantsResponse;
 import com.example.jobgsm.domain.application.dto.response.BoardIdResponse;
 import com.example.jobgsm.domain.application.entity.Application;
 import com.example.jobgsm.domain.application.exception.BoardNotFoundException;
 import com.example.jobgsm.domain.application.repository.ApplicationRepository;
+import com.example.jobgsm.domain.user.entity.User;
+import com.example.jobgsm.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,32 +18,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApplicationService {
     private final ApplicationRepository applicationRepository;
+    private final UserUtil userUtil;
 
     @Transactional
-    public void joinApply(ApplyRequest applyRequest) {
+    public void joinApply(BoardIdRequest applyRequest) {
+        User user = userUtil.currentUser();
         Application application = Application.builder()
+                .email(user.getEmail())
                 .boardId(applyRequest.getBoardId())
-                .userId(applyRequest.getUserId())
-                .name(applyRequest.getName())
-                .grade(applyRequest.getGrade())
+                .name(user.getName())
+                .grade(user.getGrade())
                 .build();
         applicationRepository.save(application);
     }
 
     @Transactional
-    public void joinCancel(CancelRequest cancelRequest) {
-        applicationRepository.findByBoardId(cancelRequest.getBoardId()).orElseThrow(() -> new BoardNotFoundException("게시글을 찾을 수 없습니다"));
-        applicationRepository.deleteApplicationByBoardIdAndUserId(cancelRequest.getBoardId(), cancelRequest.getUserId());
+    public void joinCancel(BoardIdRequest applyRequestDto) {
+        applicationRepository.findByBoardId(applyRequestDto.getBoardId()).orElseThrow(() -> new BoardNotFoundException("게시글을 찾을 수 없습니다"));
+        User user = userUtil.currentUser();
+        applicationRepository.deleteApplicationByBoardIdAndEmail(applyRequestDto.getBoardId(), user.getEmail());
     }
 
     @Transactional
-    public List<ApplicantsResponse> applicantsList(Long boardId) {
+    public List<ApplicantsResponse> applicantsList(BoardIdRequest boardIdRequest) {
         //applicationRepository.findByBoardId(boardId).orElseThrow(() -> new BoardNotFoundException("게시글을 찾을 수 없습니다"));
-        return applicationRepository.findNameAndGradeByBoardId(boardId);
+        return applicationRepository.findNameAndGradeByBoardId(boardIdRequest.getBoardId());
     }
 
     @Transactional
-    public List<BoardIdResponse> applicationsList(Long userId) {
-        return applicationRepository.findApplicationsByUserId(userId);
+    public List<BoardIdResponse> applicationsList() {
+        User user = userUtil.currentUser();
+        return applicationRepository.findApplicationsByEmail(user.getEmail());
     }
 }

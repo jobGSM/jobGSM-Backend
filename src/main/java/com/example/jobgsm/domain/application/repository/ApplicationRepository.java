@@ -10,8 +10,8 @@ import java.util.Optional;
 
 public interface ApplicationRepository extends JpaRepository<Application, Long> {
 
-    void deleteApplicationByBoardIdAndUserId(Long boardId, Long userId);
+    void deleteApplicationByBoardIdAndEmail(Long boardId, String email);
     Optional<Application> findByBoardId(Long boardId);
     List<ApplicantsResponse> findNameAndGradeByBoardId(Long boardId);
-    List<BoardIdResponse> findApplicationsByUserId(Long userId);
+    List<BoardIdResponse> findApplicationsByEmail(String email);
 }
