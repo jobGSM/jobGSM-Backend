@@ -1,4 +1,4 @@
-package com.example.jobgsm.global.secure;
+package com.example.jobgsm.global2.secure;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

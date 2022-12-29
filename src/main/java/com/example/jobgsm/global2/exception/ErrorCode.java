@@ -1,8 +1,7 @@
-package com.example.jobgsm.global.exception;
+package com.example.jobgsm.global2.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
