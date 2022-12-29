@@ -9,6 +9,8 @@ import com.example.jobgsm.domain.user.exception.PasswordWrongException;
 import com.example.jobgsm.domain.user.exception.UserNotFoundException;
 import com.example.jobgsm.global.exception.ErrorCode;
 import com.example.jobgsm.global.exception.ErrorResponse;
+import com.example.jobgsm.global.exception.exceptionCollection.TokenExpirationException;
+import com.example.jobgsm.global.exception.exceptionCollection.TokenNotValidException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -105,6 +107,19 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BoardNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleCustomException(HttpServletRequest request , RefreshTokenNotFoundException exception) {
         log.warn("handleCustomException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+    @ExceptionHandler(TokenExpirationException.class)
+    public ResponseEntity<ErrorResponse> handleTokenExpirationException(HttpServletRequest request, TokenExpirationException exception) {
+        log.warn("TokenExpirationException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+
+    @ExceptionHandler(TokenNotValidException.class)
+    public ResponseEntity<ErrorResponse> handleTokenNotValidException(HttpServletRequest request, TokenNotValidException exception) {
+        log.warn("TokenNotValidException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }

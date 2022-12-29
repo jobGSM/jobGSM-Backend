@@ -37,6 +37,7 @@ public class AuthController {
         memberService.execute(accessToken);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @PatchMapping
     public ResponseEntity<NewTokenResponse> reIssueToken(@RequestHeader("RefreshToken") String token) {
         NewTokenResponse reIssueToken = memberService.tokenReissuance(token);
