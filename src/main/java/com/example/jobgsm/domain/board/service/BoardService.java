@@ -43,10 +43,5 @@ public class BoardService {
         boardRepository.delete(entity);
     }
 
-    @Transactional
-    public BoardResponseDto findById(final Long id) {
-        Board entity = boardRepository.findById(id).orElseThrow(() -> new BoardNotFoundException("게시글 정보를 찾을 수 없습니다."));
-        return new BoardResponseDto(entity);
-    }
 
 }
