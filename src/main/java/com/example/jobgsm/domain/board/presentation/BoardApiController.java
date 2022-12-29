@@ -43,8 +43,4 @@ public class BoardApiController {
         boardService.delete(boardId.getBoardId());
         return ResponseEntity.ok().build();
     }
-    @GetMapping("/boards/content")
-    public BoardResponseDto findById(@RequestBody @Nullable BoardRequestDto boardId) {
-        return boardService.findById(boardId.getBoardId());
-    }
 }
