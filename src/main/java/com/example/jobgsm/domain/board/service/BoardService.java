@@ -23,7 +23,7 @@ public class BoardService {
         boardRepository.save(params.toEntity());
     }
     public List<BoardResponseDto> findAll(){
-        Sort sort = Sort.by(Sort.Direction.DESC,"boardId","createdDate");
+        Sort sort = Sort.by(Sort.Direction.ASC,"boardId","createdDate");
         List<Board> list = boardRepository.findAll(sort);
         return list.stream().map(BoardResponseDto::new).collect(Collectors.toList());
     }
