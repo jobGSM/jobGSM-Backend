@@ -20,9 +20,7 @@ public class ApplicationController {
 
     @PostMapping("/application")
     public ResponseEntity<Void> joinApply(@RequestBody @Valid BoardIdRequest boardId) {
-        System.out.println("cont 1");
         applicationService.joinApply(boardId);
-        System.out.println("cont 2");
         return ResponseEntity.ok().build();
     }
 
