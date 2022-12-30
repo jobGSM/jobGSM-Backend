@@ -5,9 +5,8 @@ import com.example.jobgsm.domain.application.presentation.dto.request.BoardIdReq
 import com.example.jobgsm.domain.application.presentation.dto.response.ApplicantsResponse;
 import com.example.jobgsm.domain.application.presentation.dto.response.BoardIdResponse;
 import com.example.jobgsm.domain.application.entity.Application;
-import com.example.jobgsm.domain.application.exception.BoardNotFoundException;
 import com.example.jobgsm.domain.application.repository.ApplicationRepository;
-import com.example.jobgsm.domain.board.entity.Board;
+import com.example.jobgsm.domain.board.exception.BoardNotFoundException;
 import com.example.jobgsm.domain.board.repository.BoardRepository;
 import com.example.jobgsm.domain.user.entity.User;
 import com.example.jobgsm.global.util.UserUtil;
@@ -26,6 +25,7 @@ public class ApplicationService {
 
     @Transactional
     public void joinApply(BoardIdRequest applyRequest) {
+        boardRepository.findById(applyRequest.getBoardId()).orElseThrow(() -> new BoardNotFoundException("존재하지 않는 게시글입니다."));
         if(boardRepository.findById(applyRequest.getBoardId()).get().getBoardApplicant() == applicationRepository.findAllByBoardId(applyRequest.getBoardId()).size()){
             throw new FullUpException("신청자리가 꽉 찼습니다.");
         }

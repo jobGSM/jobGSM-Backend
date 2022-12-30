@@ -105,12 +105,6 @@ public class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
-    @ExceptionHandler(BoardNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleCustomException(HttpServletRequest request , RefreshTokenNotFoundException exception) {
-        log.warn("handleCustomException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
-        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
-        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
-    }
     @ExceptionHandler(TokenExpirationException.class)
     public ResponseEntity<ErrorResponse> handleTokenExpirationException(HttpServletRequest request, TokenExpirationException exception) {
         log.warn("TokenExpirationException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
@@ -147,6 +141,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(FullUpException.class)
     public ResponseEntity<ErrorResponse> FullUpException(HttpServletRequest request , FullUpException exception) {
         log.warn("FullUpException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
+    @ExceptionHandler(BoardNotFoundException.class)
+    public ResponseEntity<ErrorResponse> boardNotFoundException(HttpServletRequest request , BoardNotFoundException exception) {
+        log.warn("boardNotFoundException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
         ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
