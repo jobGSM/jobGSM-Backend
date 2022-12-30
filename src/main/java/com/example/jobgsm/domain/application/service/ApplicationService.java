@@ -40,9 +40,9 @@ public class ApplicationService {
     }
 
     @Transactional
-    public List<ApplicantsResponse> applicantsList(BoardIdRequest boardIdRequest) {
+    public List<ApplicantsResponse> applicantsList(Long boardId) {
         //applicationRepository.findByBoardId(boardId).orElseThrow(() -> new BoardNotFoundException("게시글을 찾을 수 없습니다"));
-        return applicationRepository.findNameAndGradeByBoardId(boardIdRequest.getBoardId());
+        return applicationRepository.findNameAndGradeByBoardId(boardId);
     }
 
     @Transactional

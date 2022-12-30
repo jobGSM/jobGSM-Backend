@@ -12,8 +12,6 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class PwdRequest {
 
-    @NotNull
-    private Long userId;
     @NotEmpty
     private String password;
 }

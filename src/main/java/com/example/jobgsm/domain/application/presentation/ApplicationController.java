@@ -31,11 +31,11 @@ public class ApplicationController {
     }
 
     @GetMapping("/application")
-    public List<ApplicantsResponse> applicantsList(@RequestBody @Valid BoardIdRequest boardId) {
+    public List<ApplicantsResponse> applicantsList(@RequestParam("boardId") Long boardId) {
         return applicationService.applicantsList(boardId);
     }
 
-    @GetMapping("/applications")
+    @GetMapping("/applications/")
     public List<BoardIdResponse> applicationsList() {
         return applicationService.applicationsList();
     }
