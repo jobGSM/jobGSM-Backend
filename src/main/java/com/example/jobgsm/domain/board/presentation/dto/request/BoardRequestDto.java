@@ -12,6 +12,7 @@ public class BoardRequestDto {
     private Long boardId;
     private String boardTitle;
     private String boardContent;
+    private String boardGrade;
     private String boardWriter;
     private String boardStartDate;
     private String boardEndDate;
@@ -21,6 +22,7 @@ public class BoardRequestDto {
         return Board.builder()
                 .boardTitle(boardTitle)
                 .boardContent(boardContent)
+                .boardGrade(boardGrade)
                 .boardWriter(boardWriter)
                 .boardStartDate(boardStartDate)
                 .boardEndDate(boardEndDate)

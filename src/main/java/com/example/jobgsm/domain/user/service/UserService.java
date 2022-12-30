@@ -48,9 +48,12 @@ public class UserService {
 
     @Transactional
     public void editPwd(PwdRequest pwdRequest) {
-        User user = userRepository.findById(pwdRequest.getUserId())
+        User user = userUtil.currentUser();
+        User user1 = userRepository.findUserByEmail(user.getEmail())
                 .orElseThrow(() -> new UserNotFoundException("유저를 찾을 수 없습니다."));
-
-        user.updatePassword(passwordEncoder.encode(pwdRequest.getPassword()));
+        if(!passwordEncoder.matches(pwdRequest.getPassword(), user.getPassword())) {
+            throw new PasswordWrongException("비밀번호가 올바르지 않습니다.");
+        }
+        user1.updatePassword(passwordEncoder.encode(pwdRequest.getPassword()));
     }
 }
