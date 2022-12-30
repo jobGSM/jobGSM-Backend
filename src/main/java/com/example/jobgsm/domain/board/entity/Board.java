@@ -22,6 +22,7 @@ public class Board {
     private Long boardId; // PK
     private String boardTitle; // 제목
     private String boardContent; // 내용
+    private String boardGrade; //학년
     private String boardWriter; // 작성자
     private int boardApplicant; // 모집 인원
     private String boardStartDate;//모집 기한
@@ -31,20 +32,20 @@ public class Board {
     private LocalDateTime modifiedDate; // 수정일
 
     @Builder
-    public Board(Long boardId, String boardTitle, String boardContent, String boardWriter, int boardApplicant, String boardStartDate,String boardEndDate) {
+    public Board(Long boardId, String boardTitle, String boardContent, String boardGrade,String boardWriter, int boardApplicant, String boardStartDate,String boardEndDate) {
         this.boardId = boardId;
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
+        this.boardGrade = boardGrade;
         this.boardWriter = boardWriter;
         this.boardApplicant = boardApplicant;
         this.boardStartDate = boardStartDate;
         this.boardEndDate =boardEndDate;
     }
 
-    public void update(String boardTitle,String boardContent,String boardWriter,int boardApplicant,String boardStartDate,String boardEndDate){
+    public void update(String boardTitle,String boardContent,int boardApplicant,String boardStartDate,String boardEndDate){
         this.boardTitle = boardTitle;
         this.boardContent = boardContent;
-        this.boardWriter = boardWriter;
         this.boardStartDate = boardStartDate;
         this.boardEndDate = boardEndDate;
         this.boardApplicant = boardApplicant;

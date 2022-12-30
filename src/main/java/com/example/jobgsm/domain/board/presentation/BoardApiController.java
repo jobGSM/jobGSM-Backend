@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 @RestController
 @RequestMapping("/board")
 @RequiredArgsConstructor
