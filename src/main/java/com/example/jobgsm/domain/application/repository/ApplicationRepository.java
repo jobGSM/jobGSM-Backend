@@ -14,4 +14,6 @@ public interface ApplicationRepository extends JpaRepository<Application, Long> 
     Optional<Application> findByBoardId(Long boardId);
     List<ApplicantsResponse> findNameAndGradeByBoardId(Long boardId);
     List<BoardIdResponse> findApplicationsByEmail(String email);
+
+    List<Application> findAllByBoardId(Long boardId);
 }

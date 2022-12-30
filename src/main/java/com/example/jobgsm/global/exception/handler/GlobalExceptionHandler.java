@@ -1,5 +1,6 @@
 package com.example.jobgsm.global.exception.handler;
 
+import com.example.jobgsm.domain.application.exception.FullUpException;
 import com.example.jobgsm.domain.auth.exception.*;
 import com.example.jobgsm.domain.board.exception.BoardNotFoundException;
 import com.example.jobgsm.domain.email.exception.AuthCodeExpiredException;
@@ -143,7 +144,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
     }
 
-
+    @ExceptionHandler(FullUpException.class)
+    public ResponseEntity<ErrorResponse> FullUpException(HttpServletRequest request , FullUpException exception) {
+        log.warn("FullUpException 발생!!! url:{}, trace:{}", request.getRequestURI(), exception.getStackTrace());
+        ErrorResponse errorResponse = new ErrorResponse(exception.getErrorCode().getMessage(), exception.getErrorCode().getStatus());
+        return new ResponseEntity<>(errorResponse, HttpStatus.valueOf(exception.getErrorCode().getStatus()));
+    }
 
 }
 

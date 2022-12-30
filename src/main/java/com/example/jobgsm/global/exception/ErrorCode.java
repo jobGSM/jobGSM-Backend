@@ -30,6 +30,7 @@ public enum ErrorCode {
     POSTS_NOT_FOUND("게시글 정보를 찾을 수 없습니다.",404),
     METHOD_NOT_ALLOWED( "허용되지 않은 메서드입니다.",405),
     INTERNAL_SERVER_ERROR( "내부 서버 오류입니다.",500),
+    APPLICANTS_FULL_UP("신청자리가 꽉 찼습니다.",400),
     ;
 
     private final String message;

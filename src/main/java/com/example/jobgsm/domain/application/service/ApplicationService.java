@@ -1,11 +1,14 @@
 package com.example.jobgsm.domain.application.service;
 
+import com.example.jobgsm.domain.application.exception.FullUpException;
 import com.example.jobgsm.domain.application.presentation.dto.request.BoardIdRequest;
 import com.example.jobgsm.domain.application.presentation.dto.response.ApplicantsResponse;
 import com.example.jobgsm.domain.application.presentation.dto.response.BoardIdResponse;
 import com.example.jobgsm.domain.application.entity.Application;
 import com.example.jobgsm.domain.application.exception.BoardNotFoundException;
 import com.example.jobgsm.domain.application.repository.ApplicationRepository;
+import com.example.jobgsm.domain.board.entity.Board;
+import com.example.jobgsm.domain.board.repository.BoardRepository;
 import com.example.jobgsm.domain.user.entity.User;
 import com.example.jobgsm.global.util.UserUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +21,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ApplicationService {
     private final ApplicationRepository applicationRepository;
+    private final BoardRepository boardRepository;
     private final UserUtil userUtil;
 
     @Transactional
     public void joinApply(BoardIdRequest applyRequest) {
+        if(boardRepository.findById(applyRequest.getBoardId()).get().getBoardApplicant() == applicationRepository.findAllByBoardId(applyRequest.getBoardId()).size()){
+            throw new FullUpException("신청자리가 꽉 찼습니다.");
+        }
         User user = userUtil.currentUser();
         Application application = Application.builder()
                 .email(user.getEmail())
