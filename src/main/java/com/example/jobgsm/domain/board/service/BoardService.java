@@ -31,7 +31,7 @@ public class BoardService {
     @Transactional
     public void update(BoardRequestDto params) {
         Board entity = boardRepository.findById(params.getBoardId()).orElseThrow(() -> new BoardNotFoundException("게시글 정보를 찾을 수 없습니다."));
-        entity.update(params.getBoardTitle(), params.getBoardContent(), params.getBoardWriter(),params.getBoardApplicant(),params.getBoardStartDate(), params.getBoardEndDate() );
+        entity.update(params.getBoardTitle(), params.getBoardContent(),params.getBoardApplicant(),params.getBoardStartDate(), params.getBoardEndDate() );
     }
 
     //게시글 삭제
