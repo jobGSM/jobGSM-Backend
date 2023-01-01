@@ -1,5 +1,6 @@
 package com.example.jobgsm.domain.board.presentation;
 
+import com.example.jobgsm.domain.board.entity.Board;
 import com.example.jobgsm.domain.board.presentation.dto.request.BoardRequestDto;
 import com.example.jobgsm.domain.board.presentation.dto.response.BoardResponseDto;
 import com.example.jobgsm.domain.board.service.BoardService;
@@ -43,4 +44,10 @@ public class BoardApiController {
         boardService.delete(boardId.getBoardId());
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/search")
+    public List<Board> research(@RequestParam String keyword){
+        return boardService.search(keyword);
+    }
+
 }

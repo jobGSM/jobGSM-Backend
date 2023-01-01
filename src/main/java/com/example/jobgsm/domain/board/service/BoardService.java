@@ -43,5 +43,10 @@ public class BoardService {
         boardRepository.delete(entity);
     }
 
+    @Transactional
+    public List<Board> search(String keyword){
+        return boardRepository.findByBoardTitleContaining(keyword);
+    }
+
 
 }
