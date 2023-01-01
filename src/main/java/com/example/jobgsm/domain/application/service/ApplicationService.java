@@ -1,5 +1,6 @@
 package com.example.jobgsm.domain.application.service;
 
+import com.example.jobgsm.domain.application.exception.AlreadyApplicationException;
 import com.example.jobgsm.domain.application.exception.FullUpException;
 import com.example.jobgsm.domain.application.presentation.dto.request.BoardIdRequest;
 import com.example.jobgsm.domain.application.presentation.dto.response.ApplicantsResponse;
@@ -30,6 +31,9 @@ public class ApplicationService {
             throw new FullUpException("신청자리가 꽉 찼습니다.");
         }
         User user = userUtil.currentUser();
+        if (applicationRepository.findApplicationByEmailAndBoardId(user.getEmail(), applyRequest.getBoardId()).isPresent()) {
+            throw new AlreadyApplicationException("이미 신청한 유저입니다.");
+        }
         Application application = Application.builder()
                 .email(user.getEmail())
                 .boardId(applyRequest.getBoardId())

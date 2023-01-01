@@ -31,6 +31,7 @@ public enum ErrorCode {
     METHOD_NOT_ALLOWED( "허용되지 않은 메서드입니다.",405),
     INTERNAL_SERVER_ERROR( "내부 서버 오류입니다.",500),
     APPLICANTS_FULL_UP("신청자리가 꽉 찼습니다.",400),
+    ALREADY_APPLICATION("이미 신청한 유저입니다", 400),
     ;
 
     private final String message;
