@@ -1,0 +1,293 @@
+[33mcommit 1f23ee5977c807210ab4c265829a9b5ba392706b[m[33m ([m[1;36mHEAD -> [m[1;32mdevelop[m[33m, [m[1;31morigin/develop[m[33m)[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Sun Jan 1 22:37:30 2023 +0900
+
+    keyword 검색 기능 구현
+
+[33mcommit 2120deb32fb00d75023309da287c19fe5d5ebccc[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Sun Jan 1 22:26:16 2023 +0900
+
+    keyword 검색 기능 구현
+
+[33mcommit f094670c3c67cc0bb9d5c162feab86995372b7f4[m
+Merge: b985ef0 2c7a37d
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Sun Jan 1 21:26:30 2023 +0900
+
+    중복신청 예외처리
+
+[33mcommit b985ef016af826066be75d70bb3f4eb626a54c19[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Fri Dec 30 18:22:20 2022 +0900
+
+    pk를 email -> id 로 변경
+
+[33mcommit 1747f23dd95c184e0c2b7a2ba8b90095cbf7e4cb[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Fri Dec 30 15:30:15 2022 +0900
+
+    존재하지 않는 게시글 신청 예외처리
+
+[33mcommit 70065eca4f8c7c69bba060c0b3e461d4c01833ff[m
+Merge: bd2eebe bcf934f
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Fri Dec 30 14:39:19 2022 +0900
+
+    .
+
+[33mcommit bd2eebe1b913e1f79b53c798eb50f2991fe08467[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Fri Dec 30 14:33:17 2022 +0900
+
+    모집인원 초과 신청 예외처리
+
+[33mcommit bcf934f8782f89612ad34656f21fd662bf9c9deb[m
+Merge: 9eba6c5 f22cfbb
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Fri Dec 30 13:53:26 2022 +0900
+
+    test
+
+[33mcommit 9eba6c502e33989738723f7491c505eee4267cc8[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Fri Dec 30 13:45:05 2022 +0900
+
+    token재발급 확인
+
+[33mcommit f22cfbb73b413c78fd3ace9cc1c4175afcf68b1d[m
+Author: yj0216 <yeojun0216@naver.com>
+Date:   Fri Dec 30 12:05:43 2022 +0900
+
+    게시판 목록 DESC -> ASC로 수정
+
+[33mcommit f9abb92f6a8e3fd03642d940fa0c913b30f0a60e[m
+Author: yj0216 <yeojun0216@naver.com>
+Date:   Fri Dec 30 11:56:46 2022 +0900
+
+    boardGrade추가
+
+[33mcommit 83975de049da77fde7f79504ba2111bc9983b402[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Fri Dec 30 10:16:02 2022 +0900
+
+    신청자 목록 request를 body -> param 변경
+
+[33mcommit 89ba1f1452fda1eb2bfa10149afb5a849769b8d9[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Thu Dec 29 21:56:54 2022 +0900
+
+    token재발급 확인
+
+[33mcommit c96278b3a7af99331a496d3af9a957610da0758b[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Thu Dec 29 21:01:49 2022 +0900
+
+    board 수정
+
+[33mcommit f54b23d4f4c7479e8d99cf09f806059518567931[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Thu Dec 29 21:00:22 2022 +0900
+
+    board 수정
+
+[33mcommit 41dcdea97cf3452087e0b044cdd615daf944a780[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Thu Dec 29 18:00:07 2022 +0900
+
+    GlobalExceptionHandler 수정
+
+[33mcommit 2c7a37d662700b5061a4c8b9d15948b7c6c749b4[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Thu Dec 29 11:09:14 2022 +0900
+
+    수정
+
+[33mcommit bc2c1a70107ccd86e39ac7330e9729e906c9dd9b[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Thu Dec 29 10:48:24 2022 +0900
+
+    application package수정
+
+[33mcommit e75b250c52593c6f3376ab52ac83432f4420763b[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Thu Dec 29 10:27:12 2022 +0900
+
+    신청관련 로직 userId -> email 변경
+
+[33mcommit 6e0367b843a8349e935bd1f8e6ef106ee72de2e3[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Thu Dec 29 09:32:27 2022 +0900
+
+    Errorcode 추가
+
+[33mcommit dcb483f54aeb0aac5eb053efcb6de0bc0d7926a8[m
+Merge: 5caef73 51b48a9
+Author: 최장우 <108380536+jangwooooo@users.noreply.github.com>
+Date:   Thu Dec 29 09:28:47 2022 +0900
+
+    Merge pull request #8 from jobGSM/feature/application
+    
+    Feature/application
+
+[33mcommit 51b48a95408586f1e8c4bf9c0a4f98fa37613b2b[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Thu Dec 29 09:28:22 2022 +0900
+
+    패키지 이름변경
+
+[33mcommit 3a536ce149ad3653e60ae143335e294a5f203bc6[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Thu Dec 29 09:27:03 2022 +0900
+
+    errorcode 추가
+
+[33mcommit 4ac4a7d9b2d570b0acd93bfbd748c7e45d7574cf[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Thu Dec 29 09:25:45 2022 +0900
+
+    import 추가
+
+[33mcommit ac96dbfdc3779e95c38b2494fc7fed5f1e295a9c[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Thu Dec 29 09:23:32 2022 +0900
+
+    yml 줄 추가
+
+[33mcommit 6841e917f92f1dc65893c879868fc45c068b6e81[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Thu Dec 29 09:22:25 2022 +0900
+
+    yml변경
+
+[33mcommit d6bd87067e566f999c062e49601b0964afdde305[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Thu Dec 29 09:20:18 2022 +0900
+
+    build.gradle 변경
+
+[33mcommit 5caef73afc82e04581e3fa65b66cc6188655d636[m
+Merge: a5ff64d e836049
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Thu Dec 29 08:53:41 2022 +0900
+
+    Merge branch 'develop' of https://github.com/jobGSM/jobGSM-Backend into develop
+
+[33mcommit a5ff64d664705aeabc2213a6a76bcc4f49858b49[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Thu Dec 29 08:51:25 2022 +0900
+
+    corsConfig 추가
+
+[33mcommit e836049d12633a8e7118cc5b474854410e19be56[m
+Author: yj0216 <yeojun0216@naver.com>
+Date:   Thu Dec 29 08:49:38 2022 +0900
+
+    오류 수정
+
+[33mcommit 66295bd66856c540684d13b27d86b5f0a891395a[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Wed Dec 28 20:56:43 2022 +0900
+
+    feature/board merge
+
+[33mcommit f6c7384b260cde8a39922d3f2d39ad8efd1750d3[m
+Merge: 6fb080a 8b05961
+Author: yj0216 <103087994+yj0216@users.noreply.github.com>
+Date:   Wed Dec 28 20:33:50 2022 +0900
+
+    Merge pull request #3 from jobGSM/feature/board
+    
+    Feature/board
+
+[33mcommit 8b0596112b85e295592ad6d0050a820bdba3d274[m
+Author: yj0216 <yeojun0216@naver.com>
+Date:   Wed Dec 28 20:33:08 2022 +0900
+
+    merge 충돌 해결
+
+[33mcommit 17c216f0ef12b39333054a618109580dae6305a4[m
+Author: yj0216 <yeojun0216@naver.com>
+Date:   Wed Dec 28 20:27:20 2022 +0900
+
+    merge 오류 충돌 해결
+
+[33mcommit e3d081064c8e0c74df16fb16a578f433168b3dce[m
+Author: yj0216 <yeojun0216@naver.com>
+Date:   Wed Dec 28 20:24:14 2022 +0900
+
+    merge
+
+[33mcommit b14985ee9dfcd7804071dec5bd1b2b3a2331635c[m
+Author: yj0216 <yeojun0216@naver.com>
+Date:   Wed Dec 28 20:19:14 2022 +0900
+
+    merge
+
+[33mcommit 6fb080a0071a6db1d5bd89b42d8c7c790ab227f0[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Wed Dec 28 12:52:45 2022 +0900
+
+    token 재발급
+
+[33mcommit b4c381207da9fee7bca93a63d7f3d7346d063097[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Wed Dec 28 12:40:07 2022 +0900
+
+    token 재발급
+
+[33mcommit 5fc55ab4c685782efe6a03b82e7a836add050573[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Wed Dec 28 09:16:46 2022 +0900
+
+    인증번호 검증 리턴값 추가
+
+[33mcommit df3498ac03ca33233e3a3f44d4e757398695a1c5[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Tue Dec 27 17:50:59 2022 +0900
+
+    ..
+
+[33mcommit 38f1c3f20283cb1a969cc1e657fa8259ee28c5fb[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Tue Dec 27 14:15:26 2022 +0900
+
+    test
+
+[33mcommit af89e905993c1d3931e571643fe33f90522e97ca[m
+Merge: 1062c96 ff03afb
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Tue Dec 27 14:14:55 2022 +0900
+
+    Merge branch 'develop' of https://github.com/jobGSM/jobGSM-Backend into develop
+
+[33mcommit 1062c961d926bf8b1e44d4ed4583a128e341c6ce[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Tue Dec 27 14:14:27 2022 +0900
+
+    테스트
+
+[33mcommit 9d48bb101cb0a669f7702db6efa6caa2271dd893[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Tue Dec 27 14:13:00 2022 +0900
+
+    test
+
+[33mcommit f65f752480fe684c9e4da761d58d61e0bee2c60a[m
+Author: Kim gyeong su <sk62628504@gmail.com>
+Date:   Tue Dec 27 14:11:25 2022 +0900
+
+    테스트
+
+[33mcommit ff03afb06b87b1538863bd61e4e31c498103c1e3[m
+Merge: 78228de 80f5ce5
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Tue Dec 27 14:04:23 2022 +0900
+
+    Merge remote-tracking branch 'origin/develop' into develop
+
+[33mcommit 78228de5925cd9020109cbcd87120355ef29ab75[m
+Author: jangwooooo <s22018@gsm.hs.kr>
+Date:   Tue Dec 27 14:03:20 2022 +0900
+
+    비밀번호 변경 encode적�
