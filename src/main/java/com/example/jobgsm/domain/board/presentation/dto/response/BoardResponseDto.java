@@ -3,6 +3,7 @@ package com.example.jobgsm.domain.board.presentation.dto.response;
 import com.example.jobgsm.domain.board.entity.Board;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -12,8 +13,8 @@ public class BoardResponseDto {
     private final String boardContent;
     private final String boardGrade;
     private final String boardWriter;
-    private final String boardStartDate;
-    private final String boardEndDate;
+    private final LocalDate boardStartDate;
+    private final LocalDate boardEndDate;
     private final int boardApplicant;
     private final LocalDateTime createdDate;
     private final LocalDateTime modifiedDate;

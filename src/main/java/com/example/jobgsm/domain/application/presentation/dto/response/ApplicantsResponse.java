@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ApplicantsResponse {
 
+    
     private String name;
     private String grade;
 
