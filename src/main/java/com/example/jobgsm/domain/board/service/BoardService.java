@@ -43,5 +43,15 @@ public class BoardService {
         boardRepository.delete(entity);
     }
 
+    @Transactional
+    public List<Board> search(String keyword){
+         List<Board> list =  boardRepository.findByBoardTitleContaining(keyword);
+         if(list.size() == 0){
+             throw new BoardNotFoundException("해당 게시글이 존재하지 않습니다.");
+         }
+         return list;
+
+    }
+
 
 }

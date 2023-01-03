@@ -6,6 +6,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class BoardRequestDto {
@@ -14,8 +16,8 @@ public class BoardRequestDto {
     private String boardContent;
     private String boardGrade;
     private String boardWriter;
-    private String boardStartDate;
-    private String boardEndDate;
+    private LocalDate boardStartDate;
+    private LocalDate boardEndDate;
     private int boardApplicant;
 
     public Board toEntity(){
